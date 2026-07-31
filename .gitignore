@@ -1,0 +1,13 @@
+﻿__pycache__/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+*.pyc
+.DS_Store
+Thumbs.db
+*.jpg
+*.b64
+request.json
+test1kb.txt
