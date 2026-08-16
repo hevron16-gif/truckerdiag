@@ -32,8 +32,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Без системного прокси: на части провайдеров он рвёт долгие запросы к api.x.ai
-http_client = httpx.Client(proxy=None, timeout=httpx.Timeout(180.0, connect=15.0))
+# Без системного прокси (на Windows часто висит SOCKS 127.0.0.1:10808 —
+# httpx его подхватывает даже при proxy=None, если trust_env=True).
+http_client = httpx.Client(
+    trust_env=False,
+    timeout=httpx.Timeout(180.0, connect=15.0),
+)
 
 client = OpenAI(
     api_key=XAI_API_KEY or "missing-xai-api-key",
