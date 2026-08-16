@@ -2,6 +2,7 @@ import os
 import re
 import json
 import base64
+import traceback
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -217,12 +218,13 @@ def _run_diagnosis(
         if known
         else "Кода нет в сервисной базе. Диагностируй по общим принципам, oem_part всегда пустой."
     )
+    extra_json = json.dumps({} if extra is None else extra, ensure_ascii=False)
     user_prompt = f"""
 Модель: {vehicle_model}
 Двигатель: {engine}
 Год: {year}
 Код ошибки: {error_code}
-Доп. данные: {json.dumps(extra or {{}}, ensure_ascii=False)}
+Доп. данные: {extra_json}
 {kb_hint}
 Верни JSON по схеме.
 """
@@ -249,6 +251,7 @@ async def diagnose(req: DiagnoseRequest):
     except HTTPException:
         raise
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -334,6 +337,7 @@ async def diagnose_photo(
     except HTTPException:
         raise
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Ошибка обработки: {str(e)}")
 
 
