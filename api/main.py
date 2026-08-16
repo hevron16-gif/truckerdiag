@@ -49,35 +49,38 @@ client = OpenAI(
 JSON_SCHEMA_HINT = """
 Формат ответа — один JSON-объект, без markdown и без текста вокруг:
 {
-  "error_description": "описание ошибки",
+  "error_description": "Подробное описание простым языком: что чувствует водитель, как проявляется, на каких режимах.",
   "top_causes": [
-    {"cause": "причина", "probability": 83, "oem_part": "номер или пустая строка"}
+    {
+      "cause": "причина",
+      "probability": 45,
+      "oem_part": "номер или пустая строка",
+      "comment": "почему это часто встречается"
+    }
   ],
-  "check_steps": ["шаг 1", "шаг 2"],
+  "check_steps": ["Шаг 1 — самый простой", "Шаг 2"],
   "severity": "can_drive|limited|tow",
-  "estimated_time_min": 45
+  "estimated_time_min": 40,
+  "practical_advice": "Можно ли ехать и какие ограничения"
 }
 """
 
 OEM_RULES = """
 ЖЁСТКИЕ ПРАВИЛА:
-1. Отвечай СТРОГО валидным JSON. Никакого текста до/после, никаких ``` ограждений.
-2. Ты эксперт-диагност китайских грузовиков Howo, Shacman и двигателей Weichai (WP/WD).
-   Опирайся на сервисную базу ниже. Не путай бренды:
-   WP* = Weichai (ставится на Howo и Shacman), WD615 = Sinotruk Howo, ISM11 = Cummins на Shacman.
-3. OEM-номер (поле oem_part) ставь ТОЛЬКО если он ЯВНО указан в базе для этой причины.
-   Если в базе написано «нет в базе» или OEM отсутствует — верни oem_part как пустую строку "".
-   ЗАПРЕЩЕНО выдумывать, подбирать «похожие», вспоминать из общих знаний VG/DZ/6126/AZ-номера.
-4. Если кода нет в базе — диагностируй по общим принципам дизеля/J1939, но oem_part всегда "".
-5. probability — целые 0–100, в сумме по top_causes примерно 100. Дай 2–4 причины.
-6. severity только одно из: can_drive, limited, tow.
-7. Язык всех строк — русский.
+1. Отвечай СТРОГО валидным JSON на русском. Никакого текста до/после, никаких ``` ограждений.
+2. Ты опытный диагност Howo, Shacman, Sitrak и двигателей Weichai.
+   WP* = Weichai, WD615 = Sinotruk Howo, ISM11 = Cummins на Shacman.
+3. 4–6 причин, строго по полевой частоте. Самая частая — первая.
+4. OEM только из сервисной базы для этой причины, иначе "". Не выдумывать номера.
+5. Если кода нет в базе — честно напиши, что точных данных мало, oem_part всегда "".
+6. Описание живое и практичное. check_steps — от простого к сложному.
+7. probability — целые 0–100, сумма ≈ 100. severity только: can_drive, limited, tow.
 """
 
 
 def _default_system_prompt() -> str:
     return (
-        "Ты — эксперт-диагност китайских грузовиков Howo, Shacman и двигателей Weichai.\n"
+        "Ты — опытный диагност китайских грузовиков Howo, Shacman, Sitrak и двигателей Weichai.\n"
         f"{OEM_RULES}\n"
         f"{JSON_SCHEMA_HINT}\n"
         "Сервисная база:\n"
@@ -112,6 +115,7 @@ class DiagnoseResponse(BaseModel):
     check_steps: list[str]
     severity: str
     estimated_time_min: int
+    practical_advice: str = ""
 
 
 def _require_api_key() -> None:
@@ -168,6 +172,7 @@ def _sanitize_diagnosis(data: dict, error_code: str) -> dict:
                     "cause": str(item.get("cause") or "").strip(),
                     "probability": int(item.get("probability") or 0),
                     "oem_part": oem,
+                    "comment": str(item.get("comment") or "").strip(),
                 }
             )
     data["top_causes"] = cleaned
@@ -175,7 +180,9 @@ def _sanitize_diagnosis(data: dict, error_code: str) -> dict:
     steps = data.get("check_steps") or []
     data["check_steps"] = [str(s) for s in steps] if isinstance(steps, list) else []
 
-    severity = str(data.get("severity") or "limited").strip().lower()
+    severity = str(data.get("severity") or "limited").strip().lower().replace(" ", "")
+    if "|" in severity:
+        severity = severity.split("|", 1)[0]
     if severity not in {"can_drive", "limited", "tow"}:
         severity = "limited"
     data["severity"] = severity
@@ -186,6 +193,7 @@ def _sanitize_diagnosis(data: dict, error_code: str) -> dict:
         data["estimated_time_min"] = 30
 
     data["error_description"] = str(data.get("error_description") or "").strip() or "Нет описания"
+    data["practical_advice"] = str(data.get("practical_advice") or "").strip()
     return data
 
 
@@ -214,9 +222,13 @@ def _run_diagnosis(
 ) -> dict:
     known = lookup(error_code)
     kb_hint = (
-        "Код есть в сервисной базе — используй её причины и OEM без изменений номеров."
+        "Код есть в сервисной базе — опирайся на неё. 4–6 причин по полевой частоте, "
+        "OEM только из базы, заполни comment и practical_advice."
         if known
-        else "Кода нет в сервисной базе. Диагностируй по общим принципам, oem_part всегда пустой."
+        else (
+            "Кода нет в сервисной базе. Честно напиши, что точных данных мало, "
+            "дай общие рекомендации по системе, oem_part всегда пустой, 4–6 причин."
+        )
     )
     extra_json = json.dumps({} if extra is None else extra, ensure_ascii=False)
     user_prompt = f"""

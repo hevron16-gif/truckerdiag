@@ -514,6 +514,13 @@ button {
   background: linear-gradient(90deg, #cc6a00, var(--accent));
 }
 
+.cause-comment {
+  margin: 0 0 6px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
 .oem {
   font-size: 0.9rem;
   color: var(--text-muted);

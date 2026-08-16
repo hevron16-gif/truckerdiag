@@ -244,6 +244,7 @@
         check_steps: [],
         severity: "limited",
         estimated_time_min: null,
+        practical_advice: "",
       };
     }
     return {
@@ -252,6 +253,7 @@
       check_steps: Array.isArray(d.check_steps) ? d.check_steps : [],
       severity: d.severity || "limited",
       estimated_time_min: d.estimated_time_min ?? null,
+      practical_advice: d.practical_advice || "",
     };
   }
 
@@ -299,6 +301,7 @@
     const cause = c.cause || c.name || "—";
     const pct = Number(c.probability ?? c.percent ?? 0);
     const oem = c.oem_part || c.part || c.oem || "";
+    const comment = c.comment || "";
     const width = Math.max(0, Math.min(100, pct));
     return `
       <li class="cause-item">
@@ -307,6 +310,11 @@
           <span class="cause-pct">${pct ? pct + "%" : "—"}</span>
         </div>
         <div class="bar"><div class="bar-fill" style="width:${width}%"></div></div>
+        ${
+          comment
+            ? `<p class="cause-comment">${escapeHtml(String(comment))}</p>`
+            : ""
+        }
         ${
           oem
             ? `<div class="oem">OEM: <code>${escapeHtml(String(oem))}</code></div>`
@@ -364,6 +372,14 @@
           <h3 class="card-title">Пошаговая проверка</h3>
           ${steps}
         </div>
+        ${
+          diag.practical_advice
+            ? `<div class="card">
+          <h3 class="card-title">Можно ли ехать</h3>
+          <p>${escapeHtml(diag.practical_advice)}</p>
+        </div>`
+            : ""
+        }
       </article>`;
   }
 
