@@ -8,6 +8,8 @@ venv/
 .DS_Store
 Thumbs.db
 *.jpg
+!web/images/
+!web/images/**
 *.b64
 request.json
 test1kb.txt
