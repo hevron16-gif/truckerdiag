@@ -29,19 +29,22 @@ def load_rows():
         if len(c) < 9:
             continue
         obd = c[-1].strip().upper()
-        if not re.fullmatch(r"[PUC][0-9A-F]{4}", obd):
+        weichai = c[7].strip().upper()
+        primary = weichai if re.fullmatch(r"[PUC][0-9A-F]{4}", weichai) else obd
+        if not re.fullmatch(r"[PUC][0-9A-F]{4}", primary):
             continue
-        if obd in SKIP:
+        if primary in SKIP:
             continue
         desc = re.sub(r"\s+", " ", c[1]).strip()
         if not desc or desc.lower().startswith("номер"):
             continue
-        by[obd].append(
+        by[primary].append(
             {
                 "desc": desc,
                 "spn": c[2].strip(),
                 "fmi": c[3].strip(),
-                "weichai": c[7].strip(),
+                "weichai": weichai,
+                "obd": obd,
             }
         )
     return by
@@ -83,7 +86,7 @@ def family(obd: str, desc: str) -> str:
         return "ac"
     if "мочев" in d:
         return "scr"
-    if "обогрев впуск" in d or "подогрев впуск" in d:
+    if ("сетк" in d or "обогрев" in d or "подогрев" in d) and "впуск" in d:
         return "intake_heat"
     if "скорост" in d and "автомобил" in d:
         return "vss"
@@ -392,17 +395,19 @@ TEMPLATES = {
     },
     "intake_heat": {
         "severity": "can_drive",
-        "time": 25,
+        "time": 35,
         "causes": [
-            ("Обрыв сетки предпускового подогрева впуска", 45),
-            ("КЗ реле/цепи подогрева", 35),
-            ("Ложный сигнал при тёплом моторе", 20),
+            ("Обрыв или окисление разъёма / массы сетки подогрева впуска", 40),
+            ("Сгорел предохранитель или не щёлкает реле подогрева", 35),
+            ("Обрыв спирали сетки или КЗ на массу / корпус", 25),
         ],
         "steps": [
-            "Проверить реле и предохранитель подогрева.",
-            "Сопротивление сетки, нет ли КЗ на массу.",
+            "Считать, командует ли ЭБУ сеткой, и напряжение на клеммах при включении.",
+            "Проверить предохранитель и реле подогрева (часто на раме / у ЭБУ).",
+            "Измерить сопротивление сетки и изоляцию на массу.",
+            "На холодном пуске зимой сетка должна греть впуск — рукой на патрубке после нескольких секунд.",
         ],
-        "advice": "Летом можно ехать. Зимой будет тяжелее заводиться.",
+        "advice": "Летом можно ехать. Зимой мотор будет плохо заводиться, не крутить стартером до нуля.",
     },
     "vss": {
         "severity": "can_drive",
@@ -483,13 +488,25 @@ def clean_desc(s: str) -> str:
     return s.strip(" .")
 
 
-def emit_entry(obd: str, items: list[dict]) -> str:
+def emit_entry(code: str, items: list[dict]) -> str:
     primary = items[0]
     desc = clean_desc(primary["desc"])
-    fam = family(obd, desc)
+    fam = family(code, desc)
     tpl = TEMPLATES[fam]
     aliases = []
     for it in items:
+        obd = (it.get("obd") or "").strip().upper()
+        if obd and obd != code and re.fullmatch(r"[PUC][0-9A-F]{4}", obd):
+            key = re.sub(r"[\s/_-]", "", obd)
+            if key not in USED_ALIASES:
+                USED_ALIASES.add(key)
+                aliases.append(obd)
+        weichai = (it.get("weichai") or "").strip().upper()
+        if weichai and weichai != code and re.fullmatch(r"[PUC][0-9A-F]{4}", weichai):
+            key = re.sub(r"[\s/_-]", "", weichai)
+            if key not in USED_ALIASES:
+                USED_ALIASES.add(key)
+                aliases.append(weichai)
         spn, fmi = it["spn"], it["fmi"]
         if not (spn.isdigit() and fmi.isdigit()):
             continue
@@ -524,7 +541,7 @@ def emit_entry(obd: str, items: list[dict]) -> str:
         alias_s = f'\n        "aliases": {aliases},'
 
     return f"""    {{
-        "code": "{obd}",{alias_s}
+        "code": "{code}",{alias_s}
         "brands": {brands},
         "engines": {engines},
         "title": "{py_str(title)}",
@@ -547,8 +564,8 @@ def emit_entry(obd: str, items: list[dict]) -> str:
 def main() -> None:
     by = load_rows()
     blocks = []
-    for obd in sorted(by):
-        blocks.append(emit_entry(obd, by[obd]))
+    for code in sorted(by):
+        blocks.append(emit_entry(code, by[code]))
 
     # Extra ABS / body codes from Shacman-WABCO field table (not in Weichai ECU list)
     extra_abs = [
