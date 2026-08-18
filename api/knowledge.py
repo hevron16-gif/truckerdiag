@@ -896,6 +896,10 @@ _SITRAK_PATH = Path(__file__).resolve().parent / "knowledge_sitrak.json"
 if _SITRAK_PATH.is_file():
     KNOWLEDGE.extend(json.loads(_SITRAK_PATH.read_text(encoding="utf-8")))
 
+_MORE_PATH = Path(__file__).resolve().parent / "knowledge_more.json"
+if _MORE_PATH.is_file():
+    KNOWLEDGE.extend(json.loads(_MORE_PATH.read_text(encoding="utf-8")))
+
 
 def _all_keys(entry: dict[str, Any]) -> list[str]:
     keys = [str(entry["code"])]
