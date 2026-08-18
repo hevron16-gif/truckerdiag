@@ -82,6 +82,11 @@ button {
   gap: 12px;
 }
 
+.header-brand-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .logo {
   width: 44px;
   height: 44px;
@@ -657,11 +662,55 @@ button {
   font-size: 0.8rem;
   color: var(--text-muted);
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+}
+
+.footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--accent);
 }
 
 .footer code {
   color: var(--accent);
   font-size: 0.85em;
+}
+
+.req-list {
+  margin: 0 0 24px;
+  padding: 4px 0;
+}
+
+.req-row {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.req-row dt {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.req-row dd {
+  margin: 0;
+  color: var(--text);
+}
+
+.req-row a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.req-row a:hover {
+  color: var(--accent-hover);
 }
 
 .ref-gallery {

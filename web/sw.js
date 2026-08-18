@@ -1,8 +1,9 @@
 /* TruckerDiag PWA service worker */
-const CACHE = "truckerdiag-v5";
+const CACHE = "truckerdiag-v6";
 const ASSETS = [
   "./",
   "./index.html",
+  "./requisites.html",
   "./config.js",
   "./app.js",
   "./app.js?v=5",
@@ -43,6 +44,7 @@ self.addEventListener("fetch", (event) => {
   const isAppShell =
     path.endsWith("/") ||
     path.endsWith("/index.html") ||
+    path.endsWith("/requisites.html") ||
     path.endsWith("/app.js") ||
     path.endsWith("/config.js") ||
     path.endsWith("/sw.js");
