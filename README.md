@@ -16,8 +16,10 @@ cd api
 pip install -r requirements.txt
 copy .env.example .env
 # впишите XAI_API_KEY в .env
-python main.py
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
+
+Локально можно и `python main.py` — порт берётся из `PORT` (по умолчанию 8000).
 
 API: http://localhost:8000  
 Health: http://localhost:8000/health
@@ -46,3 +48,13 @@ Open http://localhost:5500
 | `XAI_BASE_URL` | optional, default `https://api.x.ai/v1` |
 
 Ключ не коммитить: `.env` уже в `.gitignore`.
+
+Адрес API во фронте: `web/config.js` (`window.TRUCKERDIAG_API`), либо `?api=https://...`, либо клик по адресу в подвале.
+
+## Render
+
+Коротко: см. [RENDER.md](RENDER.md).
+
+- Root Directory: `api`
+- Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- Обязательная переменная: `XAI_API_KEY`

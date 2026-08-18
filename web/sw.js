@@ -1,9 +1,11 @@
 /* TruckerDiag PWA service worker */
-const CACHE = "truckerdiag-v1";
+const CACHE = "truckerdiag-v5";
 const ASSETS = [
   "./",
   "./index.html",
+  "./config.js",
   "./app.js",
+  "./app.js?v=5",
   "./style.css",
   "./manifest.json",
   "./icons/icon.svg",
@@ -36,8 +38,31 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Same-origin static: cache-first
+  // HTML/JS — сеть первой, чтобы список моделей не залипал в старом кэше
+  const path = url.pathname;
+  const isAppShell =
+    path.endsWith("/") ||
+    path.endsWith("/index.html") ||
+    path.endsWith("/app.js") ||
+    path.endsWith("/config.js") ||
+    path.endsWith("/sw.js");
+
   if (url.origin === self.location.origin) {
+    if (isAppShell) {
+      event.respondWith(
+        fetch(req)
+          .then((res) => {
+            if (res && res.ok) {
+              const clone = res.clone();
+              caches.open(CACHE).then((c) => c.put(req, clone));
+            }
+            return res;
+          })
+          .catch(() => caches.match(req))
+      );
+      return;
+    }
+
     event.respondWith(
       caches.match(req).then((cached) => {
         const fetched = fetch(req)

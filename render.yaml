@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: truckerdiag
+    runtime: python
+    rootDir: api
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: XAI_API_KEY
+        sync: false
+      - key: XAI_MODEL
+        value: grok-4.6
+      - key: XAI_BASE_URL
+        value: https://api.x.ai/v1
+      - key: SERVE_WEB
+        value: "1"
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: DEBUG
+        value: "0"
+      - key: PYTHON_VERSION
+        value: "3.12.8"

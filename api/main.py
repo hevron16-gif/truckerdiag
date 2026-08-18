@@ -8,11 +8,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from openai import OpenAI
 import httpx
 
-from knowledge import format_service_manual, lookup
+from knowledge import format_entry, format_service_manual, images_for, known_codes, lookup
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
 load_dotenv()
@@ -20,15 +21,26 @@ load_dotenv()
 XAI_BASE_URL = os.environ.get("XAI_BASE_URL", "https://api.x.ai/v1")
 XAI_MODEL = os.environ.get("XAI_MODEL", "grok-4.6")
 XAI_API_KEY = os.environ.get("XAI_API_KEY", "").strip()
+DEBUG = os.environ.get("DEBUG", "").strip().lower() in {"1", "true", "yes"}
+SERVE_WEB = os.environ.get("SERVE_WEB", "1").strip().lower() not in {"0", "false", "no"}
+WEB_DIR = Path(__file__).resolve().parent.parent / "web"
+
+
+def _cors_origins() -> list[str]:
+    raw = os.environ.get("CORS_ORIGINS", "*").strip()
+    if not raw or raw == "*":
+        return ["*"]
+    return [part.strip() for part in raw.split(",") if part.strip()]
 
 PROMPT_PATH = Path(__file__).resolve().parent / "prompt.txt"
 
 app = FastAPI(title="TruckerDiag AI")
 
+_origins = _cors_origins()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=_origins,
+    allow_credentials=_origins != ["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -116,6 +128,7 @@ class DiagnoseResponse(BaseModel):
     severity: str
     estimated_time_min: int
     practical_advice: str = ""
+    images: list[dict] = []
 
 
 def _require_api_key() -> None:
@@ -194,6 +207,8 @@ def _sanitize_diagnosis(data: dict, error_code: str) -> dict:
 
     data["error_description"] = str(data.get("error_description") or "").strip() or "Нет описания"
     data["practical_advice"] = str(data.get("practical_advice") or "").strip()
+    # Картинки только из базы, модель их не выбирает и не выдумывает.
+    data["images"] = images_for(error_code)
     return data
 
 
@@ -221,15 +236,18 @@ def _run_diagnosis(
     extra: dict | str | None = None,
 ) -> dict:
     known = lookup(error_code)
-    kb_hint = (
-        "Код есть в сервисной базе — опирайся на неё. 4–6 причин по полевой частоте, "
-        "OEM только из базы, заполни comment и practical_advice."
-        if known
-        else (
+    if known:
+        kb_hint = (
+            "Код есть в сервисной базе — опирайся на карточку. "
+            "4–6 причин по полевой частоте, OEM только из базы, "
+            "заполни comment и practical_advice.\n\n"
+            f"Карточка кода:\n{format_entry(known)}"
+        )
+    else:
+        kb_hint = (
             "Кода нет в сервисной базе. Честно напиши, что точных данных мало, "
             "дай общие рекомендации по системе, oem_part всегда пустой, 4–6 причин."
         )
-    )
     extra_json = json.dumps({} if extra is None else extra, ensure_ascii=False)
     user_prompt = f"""
 Модель: {vehicle_model}
@@ -264,7 +282,10 @@ async def diagnose(req: DiagnoseRequest):
         raise
     except Exception as e:
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail=str(e) if DEBUG else "Внутренняя ошибка сервера",
+        )
 
 
 def _image_media_type(photo: UploadFile) -> str:
@@ -350,7 +371,16 @@ async def diagnose_photo(
         raise
     except Exception as e:
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Ошибка обработки: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=str(e) if DEBUG else "Ошибка обработки фото",
+        )
+
+
+@app.get("/parts-images")
+async def parts_images(code: str):
+    """Справочные фото узла по коду ошибки (без вызова модели)."""
+    return {"code": code, "images": images_for(code)}
 
 
 @app.get("/health")
@@ -361,10 +391,16 @@ async def health():
         "provider": "xai",
         "ocr": "enabled",
         "has_api_key": bool(XAI_API_KEY),
+        "knowledge_codes": len(known_codes()),
     }
+
+
+if SERVE_WEB and WEB_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=str(WEB_DIR), html=True), name="web")
 
 
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", "8000"))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)

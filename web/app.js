@@ -1,14 +1,75 @@
 (() => {
   "use strict";
 
-  const API_BASE = localStorage.getItem("truckerdiag_api") || "http://localhost:8000";
+  function resolveApiBase() {
+    const params = new URLSearchParams(location.search);
+    const fromQuery = (params.get("api") || "").trim();
+    if (fromQuery) {
+      const cleaned = fromQuery.replace(/\/$/, "");
+      try {
+        localStorage.setItem("truckerdiag_api", cleaned);
+      } catch {
+        /* ignore quota / private mode */
+      }
+      return cleaned;
+    }
+    let stored = "";
+    try {
+      stored = (localStorage.getItem("truckerdiag_api") || "").trim();
+    } catch {
+      stored = "";
+    }
+    if (stored) return stored.replace(/\/$/, "");
+    const fromConfig =
+      typeof window.TRUCKERDIAG_API === "string" ? window.TRUCKERDIAG_API.trim() : "";
+    if (fromConfig) return fromConfig.replace(/\/$/, "");
+    const host = location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") {
+      return "http://localhost:8000";
+    }
+    return location.origin;
+  }
+
+  const API_BASE = resolveApiBase();
 
   const VEHICLES = {
-    "Howo A7": ["WD615", "WP10", "WP12"],
+    "Howo A7": ["WD615", "WP10"],
     "Howo T7H": ["MC11", "MC13", "WP13"],
+    "Howo T5G": ["MC07", "WP7", "WP10"],
+    "Sitrak C7H": ["MC11", "MC13", "WP13"],
+    "Sitrak C9H": ["MC13", "MC11", "WP13"],
     "Shacman X3000": ["WP12", "WP13", "ISM11"],
+    "Shacman F3000": ["WP10", "WP12", "WD615"],
+    "Shacman H3000": ["WP10", "WP12"],
+    "Shacman 6000 (X6000)": ["WP13", "WP12", "MC13"],
+    "FAW J6": ["WP10", "WP12", "CA6DM2"],
+    "FAW JH6": ["WP13", "WP12", "CA6DM3"],
+    "Dongfeng": ["WP10", "WP12", "WP13", "ISLe"],
+    "Foton Auman": ["WP10", "WP12", "ISG"],
     "Yutong ZK6122": ["YC6L", "WP10", "ISDe"],
   };
+
+  const VEHICLE_ALIASES = {
+    "f3000": "Shacman F3000",
+    "shacman f3000": "Shacman F3000",
+    "h3000": "Shacman H3000",
+    "shacman h3000": "Shacman H3000",
+    "x3000": "Shacman X3000",
+    "shacman 6000": "Shacman 6000 (X6000)",
+    "shacman x6000": "Shacman 6000 (X6000)",
+    "x6000": "Shacman 6000 (X6000)",
+  };
+
+  function enginesFor(model) {
+    const raw = String(model || "").trim();
+    if (VEHICLES[raw] && VEHICLES[raw].length) return VEHICLES[raw];
+    const lower = raw.toLowerCase();
+    if (VEHICLE_ALIASES[lower] && VEHICLES[VEHICLE_ALIASES[lower]]) {
+      return VEHICLES[VEHICLE_ALIASES[lower]];
+    }
+    const hit = Object.keys(VEHICLES).find((k) => k.toLowerCase() === lower);
+    return hit ? VEHICLES[hit] : null;
+  }
 
   const SEVERITY_LABELS = {
     can_drive: "Можно ехать",
@@ -78,10 +139,32 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function fillModels() {
+    const current = els.model.value;
+    els.model.innerHTML = Object.entries(VEHICLES)
+      .map(([m, engines]) =>
+        `<option value="${escapeHtml(m)}" data-engines="${escapeHtml(engines.join(","))}">${escapeHtml(m)}</option>`
+      )
+      .join("");
+    if (current && enginesFor(current)) els.model.value = current;
+    if (!els.model.value) {
+      const first = Object.keys(VEHICLES)[0];
+      if (first) els.model.value = first;
+    }
+  }
+
   function fillEngines() {
-    const engines = VEHICLES[els.model.value] || ["—"];
+    const opt = els.model.options[els.model.selectedIndex];
+    const fromAttr = opt && opt.dataset.engines
+      ? opt.dataset.engines.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+    const engines = fromAttr.length ? fromAttr : (enginesFor(els.model.value) || []);
+    if (!engines.length) {
+      els.engine.innerHTML = "";
+      return;
+    }
     els.engine.innerHTML = engines
-      .map((e, i) => `<option value="${e}" ${i === 0 ? "selected" : ""}>${e}</option>`)
+      .map((e, i) => `<option value="${escapeHtml(e)}" ${i === 0 ? "selected" : ""}>${escapeHtml(e)}</option>`)
       .join("");
   }
 
@@ -175,7 +258,7 @@
       const data = await res.json();
       renderResult({
         codes: [error_code],
-        diagnoses: [normalizeDiagnosis(data)],
+        diagnoses: [normalizeDiagnosis(data, error_code)],
         ocrText: null,
       });
       goTo(3);
@@ -236,7 +319,7 @@
     return msg;
   }
 
-  function normalizeDiagnosis(d) {
+  function normalizeDiagnosis(d, code) {
     if (!d || typeof d !== "object") {
       return {
         error_description: "Нет данных",
@@ -245,6 +328,7 @@
         severity: "limited",
         estimated_time_min: null,
         practical_advice: "",
+        images: [],
       };
     }
     return {
@@ -254,7 +338,24 @@
       severity: d.severity || "limited",
       estimated_time_min: d.estimated_time_min ?? null,
       practical_advice: d.practical_advice || "",
+      images: normalizeImages(d.images),
     };
+  }
+
+  function normalizeImages(raw) {
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .map((img) => {
+        if (!img || typeof img !== "object") return null;
+        const file = String(img.file || img.src || "").replace(/^.*[\\/]/, "").trim();
+        if (!file || file.includes("..")) return null;
+        return {
+          file,
+          src: "images/" + file,
+          caption: String(img.caption || "").trim(),
+        };
+      })
+      .filter(Boolean);
   }
 
   /** Поддержка формата из ТЗ и реального ответа FastAPI */
@@ -263,8 +364,8 @@
     if (data.diagnosis || data.detected_codes) {
       const codes = data.detected_codes || [];
       const diagnoses = data.diagnosis
-        ? [normalizeDiagnosis(data.diagnosis)]
-        : (data.diagnoses || []).map(normalizeDiagnosis);
+        ? [normalizeDiagnosis(data.diagnosis, codes[0])]
+        : (data.diagnoses || []).map((d, i) => normalizeDiagnosis(d, codes[i]));
       return {
         codes,
         diagnoses,
@@ -277,7 +378,9 @@
       const ocr = data.ocr_result || {};
       return {
         codes: ocr.error_codes || data.detected_codes || [],
-        diagnoses: (data.diagnoses || []).map(normalizeDiagnosis),
+        diagnoses: (data.diagnoses || []).map((d, i) =>
+          normalizeDiagnosis(d, (ocr.error_codes || data.detected_codes || [])[i])
+        ),
         ocrText: ocr.notes || null,
         ocrVehicle: ocr.vehicle_model || null,
       };
@@ -364,6 +467,7 @@
           <h3 class="card-title">Описание</h3>
           <p>${escapeHtml(diag.error_description)}</p>
         </div>
+        ${renderImageGallery(diag.images)}
         <div class="card">
           <h3 class="card-title">Вероятные причины</h3>
           ${causes}
@@ -381,6 +485,113 @@
             : ""
         }
       </article>`;
+  }
+
+  function renderImageGallery(images) {
+    if (!images || !images.length) return "";
+    const payload = encodeURIComponent(JSON.stringify(images));
+    const items = images
+      .map((img, i) => {
+        const cap = img.caption || "Справочное фото";
+        return `<button type="button" class="ref-thumb" data-ref-index="${i}" aria-label="${escapeHtml(cap)}">
+          <img src="${escapeHtml(img.src)}" alt="${escapeHtml(cap)}" loading="lazy" />
+          <span class="ref-thumb-cap">${escapeHtml(cap)}</span>
+        </button>`;
+      })
+      .join("");
+    return `<div class="card">
+        <h3 class="card-title">Как выглядит узел</h3>
+        <div class="ref-gallery" data-ref-images="${payload}">${items}</div>
+      </div>`;
+  }
+
+  const lightbox = {
+    items: [],
+    index: 0,
+    el: null,
+    img: null,
+    cap: null,
+    counter: null,
+  };
+
+  function ensureLightbox() {
+    if (lightbox.el) return lightbox.el;
+    const root = document.createElement("div");
+    root.id = "lightbox";
+    root.className = "lightbox";
+    root.hidden = true;
+    root.innerHTML = `
+      <button type="button" class="lightbox-close" aria-label="Закрыть">×</button>
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Предыдущее">‹</button>
+      <figure class="lightbox-figure">
+        <img alt="" />
+        <figcaption>
+          <span class="lightbox-cap"></span>
+          <span class="lightbox-counter"></span>
+        </figcaption>
+      </figure>
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Следующее">›</button>`;
+    document.body.appendChild(root);
+    lightbox.el = root;
+    lightbox.img = root.querySelector("img");
+    lightbox.cap = root.querySelector(".lightbox-cap");
+    lightbox.counter = root.querySelector(".lightbox-counter");
+
+    root.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+    root.querySelector(".lightbox-prev").addEventListener("click", (e) => {
+      e.stopPropagation();
+      stepLightbox(-1);
+    });
+    root.querySelector(".lightbox-next").addEventListener("click", (e) => {
+      e.stopPropagation();
+      stepLightbox(1);
+    });
+    root.addEventListener("click", (e) => {
+      if (e.target === root) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (root.hidden) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") stepLightbox(-1);
+      if (e.key === "ArrowRight") stepLightbox(1);
+    });
+    return root;
+  }
+
+  function openLightbox(items, index) {
+    if (!items || !items.length) return;
+    ensureLightbox();
+    lightbox.items = items;
+    lightbox.index = index;
+    paintLightbox();
+    lightbox.el.hidden = false;
+    document.body.classList.add("lightbox-open");
+  }
+
+  function closeLightbox() {
+    if (!lightbox.el) return;
+    lightbox.el.hidden = true;
+    document.body.classList.remove("lightbox-open");
+  }
+
+  function stepLightbox(delta) {
+    const n = lightbox.items.length;
+    if (!n) return;
+    lightbox.index = (lightbox.index + delta + n) % n;
+    paintLightbox();
+  }
+
+  function paintLightbox() {
+    const item = lightbox.items[lightbox.index];
+    if (!item) return;
+    lightbox.img.src = item.src;
+    lightbox.img.alt = item.caption || "";
+    lightbox.cap.textContent = item.caption || "";
+    lightbox.counter.textContent =
+      lightbox.items.length > 1 ? `${lightbox.index + 1} / ${lightbox.items.length}` : "";
+    const many = lightbox.items.length > 1;
+    lightbox.el.querySelector(".lightbox-prev").hidden = !many;
+    lightbox.el.querySelector(".lightbox-next").hidden = !many;
   }
 
   function renderResult({ codes, diagnoses, ocrText, ocrVehicle }) {
@@ -419,8 +630,27 @@
 
   // ——— Events ———
   function bind() {
+    fillModels();
     fillEngines();
     els.model.addEventListener("change", fillEngines);
+
+    if (els.apiUrlLabel) {
+      els.apiUrlLabel.title = "Нажмите, чтобы сменить адрес API";
+      els.apiUrlLabel.style.cursor = "pointer";
+      els.apiUrlLabel.addEventListener("click", () => {
+        const next = window.prompt("Адрес API (пусто — сбросить)", API_BASE);
+        if (next == null) return;
+        const cleaned = next.trim().replace(/\/$/, "");
+        try {
+          if (cleaned) localStorage.setItem("truckerdiag_api", cleaned);
+          else localStorage.removeItem("truckerdiag_api");
+        } catch {
+          showToast("Не удалось сохранить адрес API", true);
+          return;
+        }
+        location.reload();
+      });
+    }
 
     $("btn-to-code").addEventListener("click", () => goTo(2));
     $("btn-back-1").addEventListener("click", () => goTo(1));
@@ -429,6 +659,20 @@
       els.errorCode.value = "";
       clearPhoto();
       goTo(1);
+    });
+
+    els.resultContent.addEventListener("click", (e) => {
+      const thumb = e.target.closest(".ref-thumb");
+      if (!thumb) return;
+      const gallery = thumb.closest(".ref-gallery");
+      if (!gallery || !gallery.dataset.refImages) return;
+      try {
+        const items = JSON.parse(decodeURIComponent(gallery.dataset.refImages));
+        const idx = Number(thumb.dataset.refIndex) || 0;
+        openLightbox(items, idx);
+      } catch {
+        /* ignore broken gallery payload */
+      }
     });
 
     $("btn-diagnose").addEventListener("click", diagnoseManual);
@@ -474,10 +718,42 @@
     });
   }
 
+  async function maybePreview() {
+    const code = new URLSearchParams(location.search).get("preview");
+    if (!code) return;
+    try {
+      const r = await fetch(`${API_BASE}/parts-images?code=${encodeURIComponent(code)}`);
+      if (!r.ok) throw new Error("Не удалось загрузить фото");
+      const data = await r.json();
+      els.errorCode.value = code.toUpperCase();
+      renderResult({
+        codes: [],
+        diagnoses: [
+          normalizeDiagnosis(
+            {
+              error_description: "Превью справочных фото. Полный текст появится после диагностики.",
+              top_causes: [],
+              check_steps: [],
+              severity: "limited",
+              estimated_time_min: null,
+              images: data.images || [],
+            },
+            code
+          ),
+        ],
+        ocrText: null,
+      });
+      goTo(3);
+    } catch (e) {
+      showToast(humanError(e), true);
+    }
+  }
+
   // ——— Init ———
   bind();
   goTo(1);
   checkHealth();
+  maybePreview();
   setInterval(checkHealth, 30000);
   registerSW();
 })();

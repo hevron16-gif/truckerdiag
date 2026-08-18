@@ -7,7 +7,11 @@ oem_part ставим ТОЛЬКО если номер известен и пр�
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any
+
+from knowledge_extra import EXTRA_KNOWLEDGE
 
 # brands: Howo | Shacman | Weichai
 # engines: свободный список типичных моторов под этот код
@@ -885,6 +889,12 @@ KNOWLEDGE: list[dict[str, Any]] = [
     },
 ]
 
+KNOWLEDGE.extend(EXTRA_KNOWLEDGE)
+
+_SITRAK_PATH = Path(__file__).resolve().parent / "knowledge_sitrak.json"
+if _SITRAK_PATH.is_file():
+    KNOWLEDGE.extend(json.loads(_SITRAK_PATH.read_text(encoding="utf-8")))
+
 
 def _all_keys(entry: dict[str, Any]) -> list[str]:
     keys = [str(entry["code"])]
@@ -910,7 +920,9 @@ def _index() -> dict[str, dict[str, Any]]:
     idx: dict[str, dict[str, Any]] = {}
     for entry in KNOWLEDGE:
         for key in _all_keys(entry):
-            idx[normalize_code(key)] = entry
+            nk = normalize_code(key)
+            if nk not in idx:
+                idx[nk] = entry
     return idx
 
 
@@ -919,6 +931,142 @@ _INDEX = _index()
 
 def lookup(code: str) -> dict[str, Any] | None:
     return _INDEX.get(normalize_code(code))
+
+
+def _img(file: str, caption: str) -> dict[str, str]:
+    return {"file": file, "caption": caption}
+
+
+# Только фото/схемы РАСПОЛОЖЕНИЯ узла на двигателе или в системе.
+# Крупные планы отдельных деталей лежат в web/images/old/.
+IMG_ENGINE = [
+    _img(
+        "weichai-wp12-engine-outline.jpg",
+        "Официальный чертёж Weichai WP12 Euro V: рампа на ГБЦ, два топливных фильтра на блоке, турбина, маховик",
+    ),
+]
+
+IMG_METERING = [
+    _img(
+        "bosch-cp3-assembly-rails-injectors.jpg",
+        "Сборка Common Rail: дозирующий клапан (чёрный соленоид) стоит на корпусе ТНВД, от насоса трубы идут в рампы",
+    ),
+    _img(
+        "bosch-cp3-pump-labeled-diagram.jpg",
+        "Разрез ТНВД Bosch CP3: где на насосе сидит metering unit / overflow / выход высокого давления",
+    ),
+    _img(
+        "bosch-cp3-metering-on-pump-circuit.jpg",
+        "Схема низкого давления CP3: положение дозирующего клапана в контуре насоса",
+    ),
+]
+
+IMG_RAIL = [
+    _img(
+        "bosch-cp3-assembly-rails-injectors.jpg",
+        "Датчик давления — чёрный разъём на торце рампы; рядом редукционный клапан и трубки к форсункам",
+    ),
+    _img(
+        "common-rail-on-engine.jpg",
+        "Рампа на двигателе: трубы к форсункам, разъём датчика на правом торце, топливный фильтр ниже рампы",
+    ),
+    _img(
+        "weichai-wp12-engine-outline.jpg",
+        "WP12: рампа лежит вдоль головки блока, шесть трубок к форсункам",
+    ),
+]
+
+IMG_FILTER = [
+    _img(
+        "weichai-wp10-fuel-filter-on-engine.jpg",
+        "Топливный фильтр тонкой очистки на двигателе Weichai (корпус на блоке, рядом штуцеры магистрали)",
+    ),
+    _img(
+        "weichai-wp12-engine-outline.jpg",
+        "WP12: два топливных фильтра (фиолетовые) висят на боку блока, под турбиной",
+    ),
+]
+
+IMG_CKP = [
+    _img(
+        "weichai-wp10-ckp-on-flywheel-housing.jpg",
+        "Weichai WP10: датчик коленвала на картере маховика (обведён), смотрит на венец",
+    ),
+    _img(
+        "ckp-at-flywheel-ring.jpg",
+        "Принцип установки CKP: наконечник напротив зубчатого венца маховика",
+    ),
+    _img(
+        "weichai-wp12-engine-outline.jpg",
+        "WP12: маховик справа — CKP сидит на картере маховика с этой стороны",
+    ),
+]
+
+IMG_CMP = [
+    _img(
+        "weichai-wp10-cmp-on-engine.jpg",
+        "Weichai WP10: датчик распредвала на блоке/крышке рядом с топливным фильтром (обведён)",
+    ),
+    _img(
+        "weichai-wp12-engine-outline.jpg",
+        "WP12: зона ГРМ спереди/сбоку блока — типичное место CMP у шестерни распредвала",
+    ),
+]
+
+IMG_CR_SCHEME = [
+    _img(
+        "common-rail-system-overview.jpg",
+        "Подписанная схема Bosch CR: бак, фильтр, ТНВД, рампа, датчик рампы, форсунки, CKP, CMP, ЭБУ",
+    ),
+    _img(
+        "common-rail-system-layout.png",
+        "Схема Common Rail: фильтр, ТНВД, рампа, датчик давления, форсунки, обратка, ЭБУ",
+    ),
+]
+
+
+def _uniq_images(*groups: list[dict[str, str]]) -> list[dict[str, str]]:
+    seen: set[str] = set()
+    out: list[dict[str, str]] = []
+    for group in groups:
+        for item in group:
+            name = item["file"]
+            if name in seen:
+                continue
+            seen.add(name)
+            out.append(item)
+    return out
+
+
+# Канонический код записи (после lookup) → фото расположения узла.
+CODE_IMAGES: dict[str, list[dict[str, str]]] = {
+    "P1011": _uniq_images(IMG_METERING, IMG_ENGINE, IMG_CR_SCHEME[:1]),
+    "P0087": _uniq_images(IMG_FILTER, IMG_CR_SCHEME, IMG_RAIL),
+    "P0088": _uniq_images(IMG_RAIL, IMG_CR_SCHEME),
+    "P0089": _uniq_images(IMG_METERING, IMG_RAIL[:1], IMG_CR_SCHEME[:1]),
+    "P0093": _uniq_images(IMG_RAIL, IMG_CR_SCHEME[:1]),
+    "P0191": IMG_RAIL,
+    "P0192": IMG_RAIL,
+    "P0193": IMG_RAIL,
+    "P2269": _uniq_images(IMG_FILTER, IMG_CR_SCHEME[:1]),
+    "SPN157_FMI1": _uniq_images(IMG_FILTER, IMG_CR_SCHEME, IMG_RAIL[:1]),
+    "SPN94_FMI1": _uniq_images(IMG_FILTER, IMG_CR_SCHEME[:1]),
+    "P0201": _uniq_images(IMG_RAIL, IMG_ENGINE),
+    "P0202": _uniq_images(IMG_RAIL, IMG_ENGINE),
+    "P0203": _uniq_images(IMG_RAIL, IMG_ENGINE),
+    "SPN651_FMI5": _uniq_images(IMG_RAIL, IMG_ENGINE),
+    "P0335": IMG_CKP,
+    "P0340": IMG_CMP,
+}
+
+
+def images_for(code: str) -> list[dict[str, str]]:
+    """Фото узла для кода. Пустой список, если кода нет в базе или фото не привязаны."""
+    entry = lookup(code)
+    if not entry:
+        return []
+    items = CODE_IMAGES.get(str(entry["code"])) or []
+    return [{"file": i["file"], "caption": i["caption"]} for i in items]
 
 
 def format_entry(entry: dict[str, Any]) -> str:
@@ -944,12 +1092,26 @@ def format_entry(entry: dict[str, Any]) -> str:
 
 
 def format_service_manual() -> str:
-    header = (
-        "СЕРВИСНАЯ БАЗА TRUCKERDIAG — HOWO / SHACMAN / WEICHAI\n"
-        "=====================================================\n"
-        f"Записей: {len(KNOWLEDGE)}. OEM указан только там, где номер известен.\n"
-    )
-    return header + "\n\n".join(format_entry(e) for e in KNOWLEDGE)
+    """Краткий индекс ядра. Полная карточка кода — в user-prompt при lookup."""
+    core = [e for e in KNOWLEDGE if not e.get("source_system")]
+    extra_n = len(KNOWLEDGE) - len(core)
+    lines = [
+        "СЕРВИСНАЯ БАЗА TRUCKERDIAG — HOWO / SHACMAN / WEICHAI / SITRAK",
+        "=============================================================",
+        f"Всего записей: {len(KNOWLEDGE)} (ядро {len(core)}, расширенная SPN/FMI-база {extra_n}).",
+        "OEM только если указан в полной карточке. Полная карточка придёт отдельно, если код найден.",
+        "",
+        "Индекс ядра:",
+    ]
+    for e in core:
+        oem_bits = [
+            c.get("oem_part")
+            for c in (e.get("causes") or [])
+            if c.get("oem_part")
+        ]
+        oem = f"  OEM: {', '.join(oem_bits)}" if oem_bits else ""
+        lines.append(f"{e['code']} — {e['title']}{oem}")
+    return "\n".join(lines)
 
 
 def known_codes() -> list[str]:

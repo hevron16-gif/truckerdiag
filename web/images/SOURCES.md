@@ -1,75 +1,38 @@
-# Reference images (downloaded, not generated)
+# Reference images — только расположение узлов
 
-Sources: Wikimedia Commons, JYHY Diesel, Made-in-China parts listings,
-cdtruck.com, Pioneer Mitra, JNHTC, China Heavy Truck Parts, Autoditex.
+Старые крупные планы деталей перенесены в `old/`.
+В галерее остаются только схемы и фото, где видно МЕСТО узла
+на двигателе или в системе.
 
-## 1. Metering / SCV valve (P1011)
+Привязка: `api/knowledge.py` → `CODE_IMAGES`.
 
-| File | What it shows |
-|------|----------------|
-| `weichai-metering-valve-612600081583.jpg` | Реальный Weichai IMV 612600081583 на коробке (клапан дозирования ТНВД WP). |
-| `bosch-cp3-scv-metering-valve.jpg` | Два типа Bosch SCV/IMV: bent head и straight head (грузовики — прямой разъём). |
-| `bosch-cp3-pump-labeled-diagram.jpg` | Разрез CP3: metering unit, overflow, high-pressure outlet. |
-| `bosch-cp3-pump-overview.jpg` | Общий вид насоса CP3. |
-| `bosch-cp3-low-pressure-circuit-diagram.jpg` | Схема низкого давления CP3 (metering unit D, overflow). |
-| `bosch-cp3-high-pressure-circuit-diagram.jpg` | Схема высокого давления CP3. |
+## Файлы
 
-## 2. Fuel filter
+| File | Что видно | Источник |
+|------|-----------|----------|
+| `weichai-wp12-engine-outline.jpg` | Официальный чертёж Weichai WP12 Euro V: рампа на ГБЦ, два фильтра на блоке, турбина, маховик. | Weichai WP12 CR Euro V Maintenance Manual (demo, krutilvertel) |
+| `weichai-wp10-cmp-on-engine.jpg` | WP10: датчик распредвала на блоке рядом с топливным фильтром (обведён). | Weichai WP10 National IV O&M, Fig. 4-6, ManualsLib |
+| `weichai-wp10-ckp-on-flywheel-housing.jpg` | WP10: датчик коленвала на картере маховика (обведён). | Weichai WP10 National IV O&M, Fig. 4-7, ManualsLib |
+| `weichai-wp10-fuel-filter-on-engine.jpg` | Фильтр тонкой очистки на корпусе двигателя Weichai, штуцеры магистрали. | Weichai WP10 National IV O&M, ManualsLib |
+| `bosch-cp3-assembly-rails-injectors.jpg` | Сборка CR: ТНВД с дозирующим клапаном, две рампы, датчики на торцах, форсунки. | MotorTrend / Bosch CP3 system photo |
+| `bosch-cp3-pump-labeled-diagram.jpg` | Разрез CP3: где на насосе metering / overflow / HP-выход. | Bosch CP3 training diagram |
+| `bosch-cp3-metering-on-pump-circuit.jpg` | Схема низкого давления CP3, положение дозирующего клапана. | Bosch CP3 low-pressure circuit |
+| `common-rail-on-engine.jpg` | Рампа на моторе: трубы к форсункам, разъём датчика на торце, фильтр ниже. | Учебный разбор (ориентир узлов, не Howo) |
+| `common-rail-system-overview.jpg` | Подписанная схема Bosch CR: фильтр, ТНВД, рампа, датчик, форсунки, CKP, CMP. | JYHY Diesel / Bosch training |
+| `common-rail-system-layout.png` | Немецкая схема CR с подписями узлов. | Wikimedia Commons |
+| `ckp-at-flywheel-ring.jpg` | CKP напротив зубчатого венца маховика. | Autoditex CKP guide |
 
-| File | What it shows |
-|------|----------------|
-| `howo-a7-fuel-filter-vg1540080110.jpg` | Картридж Howo A7 Racor/Parker VG1540080110 (тонкая очистка). Нет фото «на раме», только сам фильтр. |
+Отдельного открытого фото Racor Howo A7 «на раме шасси» не нашлось.
+На Howo/Shacman с Weichai тонкая очистка стоит на двигателе — это закрыто
+фото WP10 и чертежом WP12.
 
-## 3. Rail pressure sensor
+## Коды
 
-| File | What it shows |
-|------|----------------|
-| `weichai-wp12-rail-pressure-sensor-612600081585.jpg` | Датчик рампы Weichai 612600081585 (резьба + 3-pin разъём). |
-| `common-rail-pressure-sensor-on-rail.jpg` | Датчик, вкрученный в торец рампы (учебный разбор). |
-| `common-rail-pipe-with-sensor.jpg` | Рампа / порты common rail. |
-| `common-rail-pipe-ports.jpg` | Порты рампы (форсунки / датчик / клапан). |
-
-## 4. Relief / bypass valve
-
-| File | What it shows |
-|------|----------------|
-| `weichai-wp12-rail-relief-valve-612630080306.jpg` | Редукционный клапан рампы Weichai 612630080306 (Bosch, шестигранник). |
-| `weichai-wp12-rail-relief-valve-alt.jpg` | Второй ракурс того же клапана. |
-
-## 5. Injectors / return
-
-| File | What it shows |
-|------|----------------|
-| `bosch-common-rail-injector.jpg` | Реальная Bosch CR-форсунка (Wikimedia). |
-| `bosch-common-rail-injector-cutaway.png` | Разрез CR-форсунки Bosch. |
-| `bosch-injector-parts-detail.jpg` | Детали / разбор CRI. |
-| `diesel-injector-return-faults.jpg` | Типовые дефекты форсунок и обратки. |
-
-## 6–7. CKP / CMP
-
-| File | What it shows |
-|------|----------------|
-| `howo-wd615-ckp-sensor-vg1557090013.jpg` | Датчик коленвала Howo WD615 VG1557090013 (сам датчик, не место на блоке). |
-| `howo-weichai-cmp-sensor-0281002667.jpg` | Датчик распредвала Bosch 0281002667 (Howo/Weichai WD615/WP10). |
-| `howo-weichai-cmp-sensor-connector.jpg` | Разъём CMP. |
-| `howo-weichai-cmp-sensor-side.jpg` | Боковой вид CMP. |
-
-## 8. Instrument cluster / U0155
-
-| File | What it shows |
-|------|----------------|
-| `howo-a7-instrument-cluster-wg9918580011.jpg` | Щиток Howo A7 WG9918580011 (лицевая сторона). |
-| `howo-a7-instrument-cluster-wg9918581101.jpg` | Щиток WG9918581101. |
-| `howo-a7-instrument-cluster-wg9918581111.webp` | Щиток WG9918581111/1. |
-
-Отдельного фото разъёма X201 (тыльная 20-pin колодка) в открытых каталогах не нашлось — только сами щитки.
-
-## Overview / schemes
-
-| File | What it shows |
-|------|----------------|
-| `common-rail-system-layout.png` | Немецкая схема CR: фильтр, ТНВД, рампа, датчик, форсунки, обратка, ECU. |
-| `common-rail-system-overview.jpg` | Обзор системы common rail. |
-| `bosch-common-rail-system-diagram.jpg` | Схема Bosch CR. |
-| `common-rail-on-engine-d7e.jpg` | Рампа на двигателе (Volvo D7E, для ориентира узлов). |
-| `common-rail-cummins-isb.jpg` | Рампа Cummins ISB (аналог ISM11 на Shacman). |
+| Коды | Набор |
+|------|--------|
+| P1011 | дозирующий клапан на ТНВД + чертёж WP12 |
+| P0087, SPN157, SPN94, P2269 | фильтр на двигателе + схемы CR |
+| P0088, P0089, P0093, P0191–P0193 | рампа / датчик на торце рампы |
+| P0201–P0203, SPN651 | форсунки на рампе + чертёж WP12 |
+| P0335 | CKP на картере маховика WP10 |
+| P0340 | CMP на блоке WP10 рядом с фильтром |

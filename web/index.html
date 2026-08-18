@@ -48,16 +48,29 @@
         <label class="field">
           <span class="field-label">Модель</span>
           <select id="vehicle-model" class="input select">
-            <option value="Howo A7">Howo A7</option>
-            <option value="Howo T7H">Howo T7H</option>
-            <option value="Shacman X3000">Shacman X3000</option>
-            <option value="Yutong ZK6122">Yutong ZK6122</option>
+            <option value="Howo A7" data-engines="WD615,WP10">Howo A7</option>
+            <option value="Howo T7H" data-engines="MC11,MC13,WP13">Howo T7H</option>
+            <option value="Howo T5G" data-engines="MC07,WP7,WP10">Howo T5G</option>
+            <option value="Sitrak C7H" data-engines="MC11,MC13,WP13">Sitrak C7H</option>
+            <option value="Sitrak C9H" data-engines="MC13,MC11,WP13">Sitrak C9H</option>
+            <option value="Shacman X3000" data-engines="WP12,WP13,ISM11">Shacman X3000</option>
+            <option value="Shacman F3000" data-engines="WP10,WP12,WD615">Shacman F3000</option>
+            <option value="Shacman H3000" data-engines="WP10,WP12">Shacman H3000</option>
+            <option value="Shacman 6000 (X6000)" data-engines="WP13,WP12,MC13">Shacman 6000 (X6000)</option>
+            <option value="FAW J6" data-engines="WP10,WP12,CA6DM2">FAW J6</option>
+            <option value="FAW JH6" data-engines="WP13,WP12,CA6DM3">FAW JH6</option>
+            <option value="Dongfeng" data-engines="WP10,WP12,WP13,ISLe">Dongfeng</option>
+            <option value="Foton Auman" data-engines="WP10,WP12,ISG">Foton Auman</option>
+            <option value="Yutong ZK6122" data-engines="YC6L,WP10,ISDe">Yutong ZK6122</option>
           </select>
         </label>
 
         <label class="field">
           <span class="field-label">Двигатель</span>
-          <select id="engine" class="input select"></select>
+          <select id="engine" class="input select">
+            <option value="WD615">WD615</option>
+            <option value="WP10">WP10</option>
+          </select>
         </label>
 
         <label class="field">
@@ -143,6 +156,7 @@
     </footer>
   </div>
 
-  <script src="app.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
