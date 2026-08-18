@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Модерация отзывов — TruckerDiag</title>
+  <link rel="icon" type="image/svg+xml" href="../icons/icon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <a class="header-brand header-brand-link" href="../">
+        <span class="logo" aria-hidden="true">⚙</span>
+        <div>
+          <h1>Админка</h1>
+          <p class="tagline">Модерация отзывов</p>
+        </div>
+      </a>
+    </header>
+
+    <main class="main">
+      <section class="screen active">
+        <form id="login-form" class="comment-form">
+          <label class="field">
+            <span class="field-label">Пароль администратора</span>
+            <input id="admin-password" class="input" type="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit" class="btn btn-primary">Войти</button>
+          <p id="login-status" class="screen-hint" hidden></p>
+        </form>
+
+        <div id="admin-panel" hidden>
+          <h2 class="screen-title">Все комментарии</h2>
+          <p id="admin-status" class="screen-hint" hidden></p>
+          <div id="admin-list" class="comments-list"></div>
+          <button type="button" id="admin-logout" class="btn btn-ghost">Выйти</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../config.js"></script>
+  <script src="comments.js"></script>
+</body>
+</html>

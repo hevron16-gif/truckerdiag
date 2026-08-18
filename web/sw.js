@@ -1,9 +1,11 @@
 /* TruckerDiag PWA service worker */
-const CACHE = "truckerdiag-v6";
+const CACHE = "truckerdiag-v7";
 const ASSETS = [
   "./",
   "./index.html",
   "./requisites.html",
+  "./comments.html",
+  "./comments.js",
   "./config.js",
   "./app.js",
   "./app.js?v=5",
@@ -35,7 +37,12 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
 
   // API — только сеть, без кэша
-  if (url.port === "8000" || url.pathname.includes("/diagnose") || url.pathname.includes("/health")) {
+  if (
+    url.port === "8000" ||
+    url.pathname.includes("/diagnose") ||
+    url.pathname.includes("/health") ||
+    url.pathname.startsWith("/api/")
+  ) {
     return;
   }
 
@@ -45,6 +52,10 @@ self.addEventListener("fetch", (event) => {
     path.endsWith("/") ||
     path.endsWith("/index.html") ||
     path.endsWith("/requisites.html") ||
+    path.endsWith("/comments.html") ||
+    path.endsWith("/comments.js") ||
+    path.endsWith("/admin/comments.html") ||
+    path.endsWith("/admin/comments.js") ||
     path.endsWith("/app.js") ||
     path.endsWith("/config.js") ||
     path.endsWith("/sw.js");

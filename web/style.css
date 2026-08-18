@@ -300,6 +300,29 @@ button {
   border-color: #555;
 }
 
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid rgba(255, 77, 77, 0.45);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: rgba(255, 77, 77, 0.12);
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.admin-actions .btn-sm {
+  margin-top: 0;
+  width: auto;
+  padding: 8px 14px;
+}
+
 .btn-sm {
   min-height: 40px;
   font-size: 0.9rem;
@@ -711,6 +734,52 @@ button {
 
 .req-row a:hover {
   color: var(--accent-hover);
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.comment-form {
+  margin-bottom: 28px;
+}
+
+.comment-status-error {
+  color: var(--danger);
+}
+
+.comments-heading {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+.comments-list {
+  margin-bottom: 24px;
+}
+
+.comment-card {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.comment-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.comment-meta time {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.comment-body {
+  margin: 0;
+  white-space: pre-wrap;
 }
 
 .ref-gallery {

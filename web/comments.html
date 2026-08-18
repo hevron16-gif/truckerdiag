@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="description" content="Отзывы и вопросы — TruckerDiag" />
+  <title>Отзывы — TruckerDiag</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <a class="header-brand header-brand-link" href="./">
+        <span class="logo" aria-hidden="true">⚙</span>
+        <div>
+          <h1>TruckerDiag</h1>
+          <p class="tagline">ИИ-диагностика китайских грузовиков</p>
+        </div>
+      </a>
+    </header>
+
+    <main class="main">
+      <section class="screen active" aria-label="Отзывы">
+        <h2 class="screen-title">Отзывы</h2>
+        <p class="screen-hint">Вопрос или отзыв о сервисе. Сообщение появится после проверки.</p>
+
+        <form id="comment-form" class="comment-form">
+          <label class="field">
+            <span class="field-label">Имя</span>
+            <input id="comment-name" class="input" type="text" name="name" maxlength="80" required autocomplete="name" />
+          </label>
+          <label class="field">
+            <span class="field-label">Комментарий</span>
+            <textarea id="comment-text" class="input textarea" name="text" maxlength="2000" required rows="5"></textarea>
+          </label>
+          <button type="submit" id="comment-submit" class="btn btn-primary">Отправить</button>
+          <p id="comment-status" class="screen-hint" hidden></p>
+        </form>
+
+        <h3 class="comments-heading">Одобренные отзывы</h3>
+        <div id="comments-list" class="comments-list">
+          <p class="screen-hint">Загрузка…</p>
+        </div>
+
+        <a class="btn btn-ghost" href="./">← На главную</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a href="./comments.html">Отзывы</a>
+      <a href="./requisites.html">Реквизиты</a>
+    </footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="comments.js"></script>
+</body>
+</html>

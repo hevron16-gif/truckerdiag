@@ -13,3 +13,5 @@ Thumbs.db
 *.b64
 request.json
 test1kb.txt
+*.db
+api/data/

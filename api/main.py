@@ -1,12 +1,13 @@
 import os
 import re
 import json
+import hmac
 import base64
 import traceback
 from pathlib import Path
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -14,6 +15,7 @@ from openai import OpenAI
 import httpx
 
 from knowledge import format_entry, format_service_manual, images_for, known_codes, lookup
+from comments_store import add_comment, approve_comment, delete_comment, list_all, list_approved
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
 load_dotenv()
@@ -22,6 +24,7 @@ XAI_BASE_URL = os.environ.get("XAI_BASE_URL", "https://api.x.ai/v1")
 XAI_MODEL = os.environ.get("XAI_MODEL", "grok-4.6")
 XAI_API_KEY = os.environ.get("XAI_API_KEY", "").strip()
 DEBUG = os.environ.get("DEBUG", "").strip().lower() in {"1", "true", "yes"}
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "changeme").strip()
 SERVE_WEB = os.environ.get("SERVE_WEB", "1").strip().lower() not in {"0", "false", "no"}
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
 
@@ -119,6 +122,11 @@ class DiagnoseRequest(BaseModel):
     year: int
     error_code: str
     freeze_frame: dict | None = None
+
+
+class CommentIn(BaseModel):
+    name: str
+    text: str
 
 
 class DiagnoseResponse(BaseModel):
@@ -375,6 +383,69 @@ async def diagnose_photo(
             status_code=500,
             detail=str(e) if DEBUG else "Ошибка обработки фото",
         )
+
+
+def _client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()[:64]
+    if request.client and request.client.host:
+        return request.client.host[:64]
+    return ""
+
+
+@app.post("/api/comments")
+async def create_comment(payload: CommentIn, request: Request):
+    name = (payload.name or "").strip()
+    text = (payload.text or "").strip()
+    if not name or len(name) > 80:
+        raise HTTPException(status_code=400, detail="Укажите имя (до 80 символов)")
+    if not text or len(text) > 2000:
+        raise HTTPException(status_code=400, detail="Укажите текст комментария (до 2000 символов)")
+    add_comment(name=name, text=text, ip=_client_ip(request))
+    return {"ok": True, "message": "Комментарий отправлен на модерацию"}
+
+
+@app.get("/api/comments")
+async def get_comments():
+    return {"comments": list_approved()}
+
+
+def _require_admin(request: Request) -> None:
+    given = (
+        request.headers.get("x-admin-password")
+        or request.query_params.get("password")
+        or ""
+    ).strip()
+    ok = (
+        bool(ADMIN_PASSWORD)
+        and len(given) == len(ADMIN_PASSWORD)
+        and hmac.compare_digest(given, ADMIN_PASSWORD)
+    )
+    if not ok:
+        raise HTTPException(status_code=401, detail="Неверный пароль")
+
+
+@app.get("/api/admin/comments")
+async def admin_list_comments(request: Request):
+    _require_admin(request)
+    return {"comments": list_all()}
+
+
+@app.post("/api/admin/comments/{comment_id}/approve")
+async def admin_approve_comment(comment_id: int, request: Request):
+    _require_admin(request)
+    if not approve_comment(comment_id):
+        raise HTTPException(status_code=404, detail="Комментарий не найден")
+    return {"ok": True}
+
+
+@app.delete("/api/admin/comments/{comment_id}")
+async def admin_delete_comment(comment_id: int, request: Request):
+    _require_admin(request)
+    if not delete_comment(comment_id):
+        raise HTTPException(status_code=404, detail="Комментарий не найден")
+    return {"ok": True}
 
 
 @app.get("/parts-images")
