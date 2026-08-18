@@ -212,8 +212,13 @@ def from_sitrak():
         brands, engines = SYS_BRANDS.get(sysname, (["Howo", "Sitrak"], ["MC11", "MC13"]))
         dtc = clean(str(x.get("dtc") or ""))
         aliases = [f"SPN {spn} FMI {fmi}", f"{spn}/{fmi}"]
-        if dtc and dtc not in {"0", "-", "0+0"} and not taken(dtc):
-            aliases.append(f"DTC {dtc}")
+        # Только настоящий P/U/C/B-код. «+7», «7+1», «P0000» схлопывают индекс.
+        if re.fullmatch(r"[PUBC][0-9A-F]{4}", dtc.upper()) and dtc.upper() not in {
+            "P0000",
+            "U0000",
+        }:
+            if not taken(dtc):
+                aliases.append(dtc.upper())
         title = desc if len(desc) < 90 else desc[:87] + "…"
         title = f"{sysname}: {title}"
         full = (

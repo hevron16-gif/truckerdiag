@@ -13,7 +13,7 @@ from typing import Any
 EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     {
         "code": "P0001",
-        "aliases": ['P0100', 'SPN 132 FMI 11', '132/11'],
+        "aliases": ['SPN 132 FMI 11', '132/11'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка напряжения в расходомере впускного воздуха",
@@ -37,7 +37,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0002",
-        "aliases": ['P0101', 'SPN 1694 FMI 15', '1694/15'],
+        "aliases": ['SPN 1694 FMI 15', '1694/15'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Положительный коэффициент расходомера впускного воздуха выше максимального порогового з…",
@@ -181,7 +181,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0008",
-        "aliases": ['P0103', 'SPN 132 FMI 2', '132/2'],
+        "aliases": ['SPN 132 FMI 2', '132/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка сигнала аппаратного оснащения датчика расходомера",
@@ -253,7 +253,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P000B",
-        "aliases": ['P0645', 'SPN 1351 FMI 5', '1351/5'],
+        "aliases": ['SPN 1351 FMI 5', '1351/5'],
         "brands": ["Howo", "Shacman"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Компрессор кондиционера работает без нагрузки",
@@ -349,7 +349,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P000F",
-        "aliases": ['P0647', 'SPN 2978 FMI 3', '2978/3'],
+        "aliases": ['SPN 2978 FMI 3', '2978/3'],
         "brands": ["Howo", "Shacman"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание источника питания при отключении нагрузки компрессора кондиционера",
@@ -373,7 +373,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0010",
-        "aliases": ['P0646', 'SPN 2978 FMI 4', '2978/4'],
+        "aliases": ['SPN 2978 FMI 4', '2978/4'],
         "brands": ["Howo", "Shacman"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание земли компрессора кондиционера при отключении нагрузки",
@@ -613,7 +613,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P001A",
-        "aliases": ['P2609', 'SPN 2898 FMI 16', '2898/16'],
+        "aliases": ['SPN 2898 FMI 16', '2898/16'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Сигнал высокого напряжения в выключенном состоянии сетки обогрева впускного воздуха",
@@ -1026,7 +1026,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P002B",
-        "aliases": ['P0563', 'SPN 167 FMI 3', '167/3'],
+        "aliases": ['SPN 167 FMI 3', '167/3'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Слишком высокое напряжение в аккумуляторе",
@@ -1050,7 +1050,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P002C",
-        "aliases": ['P0562', 'SPN 167 FMI 4', '167/4'],
+        "aliases": ['SPN 167 FMI 4', '167/4'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Низкое напряжение аккумулятора",
@@ -1168,7 +1168,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0031",
-        "aliases": ['U0073', 'SPN 522000 FMI 14', '522000/14'],
+        "aliases": ['SPN 522000 FMI 14', '522000/14'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка главного провода А CAN шины",
@@ -1360,7 +1360,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0039",
-        "aliases": ['P0116', 'SPN 110 FMI 17', '110/17'],
+        "aliases": ['SPN 110 FMI 17', '110/17'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Неправильный сигнал температуры охлаждающей жидкости двигателя в статическом состоянии",
@@ -1743,7 +1743,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0049",
-        "aliases": ['U0100', 'SPN 522004 FMI 19', '522004/19'],
+        "aliases": ['SPN 522004 FMI 19', '522004/19'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка времени ожидания отправки информации из CAN шины в АСК",
@@ -1791,7 +1791,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P004B",
-        "aliases": ['U0113', 'SPN 522006 FMI 14', '522006/14'],
+        "aliases": ['SPN 522006 FMI 14', '522006/14'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка длины данных AT1IG1 получаемых CAN",
@@ -3107,7 +3107,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0082",
-        "aliases": ['U0104', 'SPN 522030 FMI 19', '522030/19'],
+        "aliases": ['SPN 522030 FMI 19', '522030/19'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка времени ожидания ETC1, посылаемой CAN",
@@ -3347,7 +3347,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P008F",
-        "aliases": ['U0121', 'SPN 522035 FMI 8', '522035/8'],
+        "aliases": ['SPN 522035 FMI 8', '522035/8'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Истечение времени ожидания активной информации CANTSC1AE",
@@ -4355,7 +4355,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00BA",
-        "aliases": ['P0607', 'SPN 522058 FMI 19', '522058/19'],
+        "aliases": ['SPN 522058 FMI 19', '522058/19'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка Cy146, связанные с SPI и COM",
@@ -4474,7 +4474,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00BF",
-        "aliases": ['P2536', 'SPN 520203 FMI 2', '520203/2'],
+        "aliases": ['SPN 520203 FMI 2', '520203/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Неверный сигнал переключателя остановки машины",
@@ -4522,7 +4522,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00C1",
-        "aliases": ['P0475', 'SPN 571 FMI 5', '571/5'],
+        "aliases": ['SPN 571 FMI 5', '571/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Горный тормоз в движении без нагрузки",
@@ -4568,7 +4568,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00C3",
-        "aliases": ['P0478', 'SPN 571 FMI 3', '571/3'],
+        "aliases": ['SPN 571 FMI 3', '571/3'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание источника питания горного тормоза",
@@ -4591,7 +4591,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00C4",
-        "aliases": ['P0477', 'SPN 571 FMI 4', '571/4'],
+        "aliases": ['SPN 571 FMI 4', '571/4'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание земли горного тормоза",
@@ -4614,7 +4614,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00C5",
-        "aliases": ['P062F', 'SPN 2802 FMI 11', '2802/11'],
+        "aliases": ['SPN 2802 FMI 11', '2802/11'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка стирания EEP",
@@ -4686,7 +4686,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00C8",
-        "aliases": ['P0000', 'SPN 27 FMI 6', '27/6'],
+        "aliases": ['SPN 27 FMI 6', '27/6'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ограничение электротока клапана EGR",
@@ -5551,7 +5551,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00EC",
-        "aliases": ['P0340', 'SPN 4201 FMI 12', '4201/12'],
+        "aliases": ['SPN 4201 FMI 12', '4201/12'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Отсутствует сигнал распределительного вала",
@@ -5785,7 +5785,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00F6",
-        "aliases": ['P060B', 'SPN 520266 FMI 11', '520266/11'],
+        "aliases": ['SPN 520266 FMI 11', '520266/11'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Слишком большое отклонение аналого-цифровое преобразование",
@@ -5809,7 +5809,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00F7",
-        "aliases": ['P0480', 'SPN 4815 FMI 5', '4815/5'],
+        "aliases": ['SPN 4815 FMI 5', '4815/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Электромагнитный клапан вентилятора 1 без нагрузки",
@@ -5905,7 +5905,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00FB",
-        "aliases": ['P0692', 'SPN 4815 FMI 3', '4815/3'],
+        "aliases": ['SPN 4815 FMI 3', '4815/3'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание источника питания электромагнитного клапана вентилятора 1",
@@ -5953,7 +5953,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00FD",
-        "aliases": ['P0691', 'SPN 4815 FMI 4', '4815/4'],
+        "aliases": ['SPN 4815 FMI 4', '4815/4'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание земли электромагнитного клапана вентилятора 1",
@@ -6001,7 +6001,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P00FF",
-        "aliases": ['P0481', 'SPN 4815 FMI 7', '4815/7'],
+        "aliases": ['SPN 4815 FMI 7', '4815/7'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Нет нагрузки PWM привода вентилятора",
@@ -6169,7 +6169,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0106",
-        "aliases": ['P0611', 'SPN 520268 FMI 11', '520268/11'],
+        "aliases": ['SPN 520268 FMI 11', '520268/11'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка корекции баланса уровня масла 1",
@@ -6653,7 +6653,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P011C",
-        "aliases": ['P0381', 'SPN 626 FMI 5', '626/5'],
+        "aliases": ['SPN 626 FMI 5', '626/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Нет нагрузки лампы подогрева впускного воздуха",
@@ -6752,7 +6752,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0120",
-        "aliases": ['P0110', 'SPN 2898 FMI 5', '2898/5'],
+        "aliases": ['SPN 2898 FMI 5', '2898/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Нет нагрузки подогрева впускного воздуха",
@@ -6802,7 +6802,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0122",
-        "aliases": ['P0113', 'SPN 2898 FMI 3', '2898/3'],
+        "aliases": ['SPN 2898 FMI 3', '2898/3'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание источника питания подогрева впускного воздуха",
@@ -6827,7 +6827,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0123",
-        "aliases": ['P0112', 'SPN 2898 FMI 4', '2898/4'],
+        "aliases": ['SPN 2898 FMI 4', '2898/4'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание земли подогрева впускного воздуха",
@@ -6976,7 +6976,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0129",
-        "aliases": ['P0087', 'SPN 520212 FMI 1', '520212/1'],
+        "aliases": ['SPN 520212 FMI 1', '520212/1'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Давление в топливной рампе ниже минимального значения",
@@ -7002,7 +7002,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P012A",
-        "aliases": ['P062B', 'SPN 1413 FMI 14', '1413/14'],
+        "aliases": ['SPN 1413 FMI 14', '1413/14'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка параметра коррекции форсунки 1",
@@ -7851,7 +7851,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P014C",
-        "aliases": ['P0251', 'SPN 1442 FMI 2', '1442/2'],
+        "aliases": ['SPN 1442 FMI 2', '1442/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Плохое соединение модуля измерения уровня топлива с ECU",
@@ -7923,7 +7923,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P014F",
-        "aliases": ['P0254', 'SPN 1442 FMI 15', '1442/15'],
+        "aliases": ['SPN 1442 FMI 15', '1442/15'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание источника питания верхнего конца модуля измерения уровня топлива",
@@ -7947,7 +7947,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0150",
-        "aliases": ['P0253', 'SPN 1442 FMI 17', '1442/17'],
+        "aliases": ['SPN 1442 FMI 17', '1442/17'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Короткое замыкание земли верхнего конца модуля измерения уровня топлива",
@@ -8067,7 +8067,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0155",
-        "aliases": ['P0650', 'SPN 520219 FMI 5', '520219/5'],
+        "aliases": ['SPN 520219 FMI 5', '520219/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "MIL Лампа MIL без нагрузки",
@@ -8259,7 +8259,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P015D",
-        "aliases": ['P060C', 'SPN 520221 FMI 11', '520221/11'],
+        "aliases": ['SPN 520221 FMI 11', '520221/11'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка связи модуля контроля и CPU",
@@ -9062,7 +9062,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P017E",
-        "aliases": ['P2200', 'SPN 3220 FMI 5', '3220/5'],
+        "aliases": ['SPN 3220 FMI 5', '3220/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка подачи электроэнергии датчика нижнее положение",
@@ -9086,7 +9086,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P017F",
-        "aliases": ['P2201', 'SPN 3217 FMI 2', '3217/2'],
+        "aliases": ['SPN 3217 FMI 2', '3217/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Неверная компенсация сигнала датчика нижнее положение нижнее положение",
@@ -10669,7 +10669,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01C4",
-        "aliases": ['P0524', 'SPN 100 FMI 1', '100/1'],
+        "aliases": ['SPN 100 FMI 1', '100/1'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Ошибка сигнала давления масла в двигателе",
@@ -10717,7 +10717,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01C6",
-        "aliases": ['P0523', 'SPN 100 FMI 15', '100/15'],
+        "aliases": ['SPN 100 FMI 15', '100/15'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Давление масла в двигателе выше максимального предела",
@@ -10837,7 +10837,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01CB",
-        "aliases": ['P0196', 'SPN 175 FMI 15', '175/15'],
+        "aliases": ['SPN 175 FMI 15', '175/15'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Сигнал температуры масла выше максимального предела",
@@ -10957,7 +10957,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01D0",
-        "aliases": ['P2263', 'SPN 1127 FMI 0', '1127/0'],
+        "aliases": ['SPN 1127 FMI 0', '1127/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Положительное отклонение давления турбины выше максимального предела",
@@ -11029,7 +11029,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01D3",
-        "aliases": ['P006D', 'SPN 102 FMI 0', '102/0'],
+        "aliases": ['SPN 102 FMI 0', '102/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Сигнал давления впускаемого воздуха верхнего предела выше максимального значения",
@@ -11317,7 +11317,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01DF",
-        "aliases": ['P0089', 'SPN 520241 FMI 11', '520241/11'],
+        "aliases": ['SPN 520241 FMI 11', '520241/11'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Частота открывания предохранительного клапана достигла либо превысила максимальное знач…",
@@ -11643,7 +11643,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01EC",
-        "aliases": ['P0088', 'SPN 520243 FMI 21', '520243/21'],
+        "aliases": ['SPN 520243 FMI 21', '520243/21'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Давление в топливной рампе выше первого ограничения",
@@ -11769,7 +11769,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01F1",
-        "aliases": ['P0191', 'SPN 157 FMI 15', '157/15'],
+        "aliases": ['SPN 157 FMI 15', '157/15'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Прямое отклонение давления в топливной рампе выше максимального значения",
@@ -11899,7 +11899,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01F6",
-        "aliases": ['P203B', 'SPN 3516 FMI 2', '3516/2'],
+        "aliases": ['SPN 3516 FMI 2', '3516/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Ошибка регулировки уровня мочевины в впрыскиваемом объеме топлива",
@@ -11974,7 +11974,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01F9",
-        "aliases": ['P0420', 'SPN 523004 FMI 0', '523004/0'],
+        "aliases": ['SPN 523004 FMI 0', '523004/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Низкая средняя эффективность фактического преобразования SCR",
@@ -12049,7 +12049,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P01FC",
-        "aliases": ['P2214', 'SPN 3216 FMI 2', '3216/2'],
+        "aliases": ['SPN 3216 FMI 2', '3216/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Неверный сигнал проверки пика сигнала датчика нижнего уровня SCR",
@@ -12249,7 +12249,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0207",
-        "aliases": ['P3050', 'SPN 523007 FMI 2', '523007/2'],
+        "aliases": ['SPN 523007 FMI 2', '523007/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Ошибка обратного трубопровода мочевины SCR",
@@ -12324,7 +12324,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P020A",
-        "aliases": ['P0669', 'SPN 523011 FMI 0', '523011/0'],
+        "aliases": ['SPN 523011 FMI 0', '523011/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Температура внутри ECU выше максимального предела",
@@ -12373,7 +12373,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P020C",
-        "aliases": ['P3039', 'SPN 523010 FMI 0', '523010/0'],
+        "aliases": ['SPN 523010 FMI 0', '523010/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Превышение давления впрыска мочевины в блоке управления уровня мочевины SCR",
@@ -12473,7 +12473,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0210",
-        "aliases": ['P3049', 'SPN 523025 FMI 2', '523025/2'],
+        "aliases": ['SPN 523025 FMI 2', '523025/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Ошибка понижения давления SCR",
@@ -12572,7 +12572,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0214",
-        "aliases": ['P0426', 'SPN 4360 FMI 0', '4360/0'],
+        "aliases": ['SPN 4360 FMI 0', '4360/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "SCR Неверный сигнал превышения максимального предела температуры датчика SCR верхнего у…",
@@ -12946,7 +12946,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0224",
-        "aliases": ['P3029', 'SPN 4355 FMI 9', '4355/9'],
+        "aliases": ['SPN 4355 FMI 9', '4355/9'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Продолжительность включения обогревателя насоса мочевины SCR в диапазоне ошибок",
@@ -13021,7 +13021,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0227",
-        "aliases": ['P2062', 'SPN 523017 FMI 21', '523017/21'],
+        "aliases": ['SPN 523017 FMI 21', '523017/21'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "PWM Принимаемый SCR насос мочевины PWM цикл находится в недопустимом диапазоне",
@@ -13410,7 +13410,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0238",
-        "aliases": ['P1602', 'SPN 3512 FMI 3', '3512/3'],
+        "aliases": ['SPN 3512 FMI 3', '3512/3'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Слишком высокая энергоподача датчика 12V",
@@ -13434,7 +13434,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0239",
-        "aliases": ['P1603', 'SPN 3512 FMI 4', '3512/4'],
+        "aliases": ['SPN 3512 FMI 4', '3512/4'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Слишком низкая энергоподача датчика 12V",
@@ -13626,7 +13626,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0241",
-        "aliases": ['P0615', 'SPN 1675 FMI 5', '1675/5'],
+        "aliases": ['SPN 1675 FMI 5', '1675/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Нет нагрузки стартера",
@@ -13890,7 +13890,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P024C",
-        "aliases": ['P2135', 'SPN 520252 FMI 2', '520252/2'],
+        "aliases": ['SPN 520252 FMI 2', '520252/2'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Слишком большая разница между сигналами напряжения педали 1 и педали 2",
@@ -14802,7 +14802,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P0272",
-        "aliases": ['P0045', 'SPN 1188 FMI 5', '1188/5'],
+        "aliases": ['SPN 1188 FMI 5', '1188/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Незамкнутая цепь турбины",
@@ -15095,7 +15095,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P027E",
-        "aliases": ['P2049', 'SPN 3361 FMI 5', '3361/5'],
+        "aliases": ['SPN 3361 FMI 5', '3361/5'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
         "title": "Электроток распылителя форсунки мочевины SCR выше максимального предела",
@@ -16345,7 +16345,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P02B1",
-        "aliases": ['P3007', 'SPN 1387 FMI 15', '1387/15'],
+        "aliases": ['SPN 1387 FMI 15', '1387/15'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Напряжение насоса мочевины выше максимального предела",
@@ -16743,7 +16743,7 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
     },
     {
         "code": "P02C1",
-        "aliases": ['P205B', 'SPN 3031 FMI 0', '3031/0'],
+        "aliases": ['SPN 3031 FMI 0', '3031/0'],
         "brands": ["Howo", "Shacman", "Weichai"],
         "engines": ["WP10", "WP12", "WP13", "MC11", "MC13"],
         "title": "Сигнал датчика температуры бака мочевины выше максимального предела",
@@ -18112,6 +18112,766 @@ EXTRA_KNOWLEDGE: list[dict[str, Any]] = [
         ],
         "severity": "limited",
         "estimated_time_min": 40,
+    },
+    {
+        "code": "P0381",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0381: семейство 4 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0381. Варианты: P011C — Нет нагрузки лампы подогрева впускного воздуха, P011D — Перегрев лампы одогрева впускного воздуха, P011E — Короткое замыкание источника питания лампы подогрева впускного воздуха, P011F — Короткое замыкание земли лампы подогрева впускного воздуха. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0420",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0420: семейство 3 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0420. Варианты: P01F9 — Низкая средняя эффективность фактического преобразования SCR, P01FA — Средняя эффективность фактического преобразования SCR ниже уровня 1, в, P01FB — Средняя эффективность фактического преобразования SCR ниже уровня 2, в. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0426",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0426: семейство 3 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0426. Варианты: P0214 — SCR Неверный сигнал превышения максимального предела температуры датчи, P0215 — SCR Неверный сигнал превышения минимального предела температуры датчик, P0216 — SCR Неверный сигнал температуры температурного датчика SCR верхнего ур. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0475",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0475: семейство 5 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0475. Варианты: P00C1 — Горный тормоз в движении без нагрузки, P00C2 — Перегрев горного тормоза в движении, P00F0 — Нет нагрузки на реле горного тормоза, P00F1 — Превышение температуры реле гороного тормоза, P00F5 — Ошибка положения реле горного тормоза. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0477",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0477: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0477. Варианты: P00C4 — Короткое замыкание земли горного тормоза, P00F3 — Короткое замыкание земли реле горного тормоза. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0478",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0478: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0478. Варианты: P00C3 — Короткое замыкание источника питания горного тормоза, P00F2 — Короткое замыкание источника питания реле горного тормоза. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0480",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0480: семейство 5 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0480. Варианты: P00F7 — Электромагнитный клапан вентилятора 1 без нагрузки, P00F8 — Электромагнитный клапан вентилятора 2 без нагрузки, P00F9 — Электромагнитный клапан вентилятора 1 превышение температуры, P00FA — Электромагнитный клапан вентилятора 2 превышение температуры, P0103 — Слишком большой интервал времени сигнала вентилятора на рабочих оборот. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0481",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0481: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0481. Варианты: P00FF — Нет нагрузки PWM привода вентилятора, P0100 — Перегрев PWM привода вентилятора. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0523",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0523: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0523. Варианты: P01C6 — Давление масла в двигателе выше максимального предела, P01C9 — Напряжение сигнала давления масла выше максимального предела. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0607",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0607: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0607. Варианты: P00BA — Ошибка Cy146, связанные с SPI и COM, P00BB — Ошибка Cy320, связанные с SPI и COM. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P060B",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P060B: семейство 4 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P060B. Варианты: P00F6 — Слишком большое отклонение аналого-цифровое преобразование, P015A — Ошибка преобразования цифро-аналоговой информации, P015B — Ошибка преобразования цифро-аналоговой информации, P015C — Ошибка коэффициента преобразования цифро-аналоговой информации. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0611",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0611: семейство 6 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0611. Варианты: P0106 — Ошибка корекции баланса уровня масла 1, P0107 — Ошибка корекции баланса уровня масла 2, P0108 — Ошибка корекции баланса уровня масла 3, P0109 — Ошибка корекции баланса уровня масла 4, P010A — Ошибка корекции баланса уровня масла 5, P010B — Ошибка корекции баланса уровня масла 6. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0615",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0615: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0615. Варианты: P0241 — Нет нагрузки стартера, P0242 — Превышение пусковой температуры стартера. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P062B",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P062B: семейство 7 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P062B. Варианты: P012A — Ошибка параметра коррекции форсунки 1, P012B — Ошибка параметра коррекции форсунки 2, P012C — Ошибка параметра коррекции форсунки 3, P012D — Ошибка параметра коррекции форсунки 4, P012E — Ошибка параметра коррекции форсунки 5, P012F — Ошибка параметра коррекции форсунки 6, P0132 — Ошибка выделенного чипа впрыска. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P062F",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P062F: семейство 3 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P062F. Варианты: P00C5 — Ошибка стирания EEP, P00C6 — Ошибка чтения EEP, P00C7 — Ошибка записи EEP. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0645",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0645: семейство 4 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0645. Варианты: P000B — Компрессор кондиционера работает без нагрузки, P000C — Перегрев компрессора кондиционера, P000D — Незамкнутая цепь при отключении нагрузки компрессора кондиционера, P000E — Перегрев кондиционера компрессора при отключении нагрузки. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0646",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0646: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0646. Варианты: P0010 — Короткое замыкание земли компрессора кондиционера при отключении нагру, P0012 — Короткое замыкание земли при работе компрессора кондиционера. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0647",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0647: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0647. Варианты: P000F — Короткое замыкание источника питания при отключении нагрузки компрессо, P0011 — короткое замыкание источника питания при работе компрессора кондиционе. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0650",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0650: семейство 4 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0650. Варианты: P0155 — MIL Лампа MIL без нагрузки, P0156 — MIL Лампа MIL без нагрузки, P0157 — MIL Лампа MIL без нагрузки, P0158 — MIL Лампа MIL без нагрузки. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0669",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0669: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0669. Варианты: P020A — Температура внутри ECU выше максимального предела, P0258 — Сигнал напряжения датчика температуры внутренней части ECU выше максим. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0691",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0691: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0691. Варианты: P00FD — Короткое замыкание земли электромагнитного клапана вентилятора 1, P00FE — Короткое замыкание земли электромагнитного клапана вентилятора 2. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P0692",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P0692: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P0692. Варианты: P00FB — Короткое замыкание источника питания электромагнитного клапана вентиля, P00FC — Короткое замыкание источника питания электромагнитного клапана вентиля. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P1602",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P1602: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P1602. Варианты: P0238 — Слишком высокая энергоподача датчика 12V, P023A — Слишком высокая энергоподача внутренней части датчика 12 V. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P1603",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P1603: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P1603. Варианты: P0239 — Слишком низкая энергоподача датчика 12V, P023B — Слишком низкая энергоподача внутренней части датчика 12 V. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P203B",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P203B: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P203B. Варианты: P01F6 — Ошибка регулировки уровня мочевины в впрыскиваемом объеме топлива, P0221 — Ошибка повышения температуры бака мочевины SCR. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2049",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2049: семейство 3 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2049. Варианты: P027E — Электроток распылителя форсунки мочевины SCR выше максимального предел, P0280 — Короткое замыкание источника питания актуатора распылителя форсунки мо, P0281 — Короткое замыкание источника питания актуатора распылителя форсунки мо. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P205B",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P205B: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P205B. Варианты: P02C1 — Сигнал датчика температуры бака мочевины выше максимального предела, P02C2 — Сигнал датчика температуры бака мочевины ниже минимального предела. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2062",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2062: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2062. Варианты: P0227 — PWM Принимаемый SCR насос мочевины PWM цикл находится в недопустимом д, P0228 — SCRPWM Ошиька синала PWM насоса мочевины. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2135",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2135: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2135. Варианты: P024C — Слишком большая разница между сигналами напряжения педали 1 и педали 2, P024D — Неверный сигнал напряжения между педалью1, педалью 2 и переключателем . Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2200",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2200: семейство 10 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2200. Варианты: P017E — Ошибка подачи электроэнергии датчика нижнее положение, P0181 — Напряжение lambda датчика выше максимального значения (нижнее положени, P0182 — lambda Напряжение lambda датчика ниже минимального значения (нижнее по, P0183 — Напряжение lambda датчика выше максимального значения (нижнее положени, P0184 — lambda Напряжение lambda датчика ниже минимального значения (нижнее по, P0185 — lambda Сигнал lambda датчика выше максимального значения (нижнее полож, P0186 — lambda Напряжение сигнала lambda датчика ниже минимального предела (ни, P018C — Неверное состояние сигнала датчика (нижнее положение), P018F — Открытая цепь сигнала датчика (нижнее положение), P0190 — Короткое замыкание сигнала датчика (нижнее положение). Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2201",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2201: семейство 9 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2201. Варианты: P017F — Неверная компенсация сигнала датчика нижнее положение нижнее положение, P0187 — Максимальное отклонение сигнала lambda датчика выше максимального пред, P0188 — Минимальное отклонение сигнала lambda датчика ниже минимального предел, P0189 — Среднее отклонение сигнала lambda датчика выше максимального предела (, P018A — Среднее отклонение сигнала lambda датчика ниже минимального предела (н, P018B — Неверный сигнал датчика (нижнее положение), P018D — Сигнал датчика выше максимального предела (нижнее положение), P018E — Сигнал датчика ниже минимального предела (нижнее положение), P0200 — Разница сигналов датчиков верхнего и нижнего уровней датчика SCR выше . Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2214",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2214: семейство 4 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2214. Варианты: P01FC — Неверный сигнал проверки пика сигнала датчика нижнего уровня SCR, P01FD — Разница сигналов датчиков верхнего и нижнего уровней датчика SCR выше , P01FE — Разница сигналов датчиков верхнего и нижнего уровней датчика SCR ниже , P01FF — Неверный сигнал проверки отклонения сигнала датчика нижнего уровня SCR. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2536",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2536: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2536. Варианты: P00BF — Неверный сигнал переключателя остановки машины, P00C0 — Неверный сигнал переключателя запуска машины. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P2609",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P2609: семейство 5 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P2609. Варианты: P001A — Сигнал высокого напряжения в выключенном состоянии сетки обогрева впус, P001B — Сигнал низкого напряжения в выключенном состоянии сетки обогрева впуск, P001C — Сигнал высокого напряжения во включенном состоянии сетки обогрева впус, P001D — Сигнал низкого напряжения во включенном состоянии сетки обогрева впуск, P001E — Постоянно включена сетка обогрева впускного воздуха. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P3007",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P3007: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P3007. Варианты: P02B1 — Напряжение насоса мочевины выше максимального предела, P02B2 — Напряжение насоса мочевины ниже минимального предела. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P3029",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P3029: семейство 4 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P3029. Варианты: P0224 — Продолжительность включения обогревателя насоса мочевины SCR в диапазо, P0225 — Продолжительность включения обогревателя насоса мочевины SCR в недопус, P0229 — Продолжительность включения температуры насоса мочевины SCR в ошибочны, P022A — Продолжительность включения температуры насоса мочевины SCR в недопуст. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P3039",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P3039: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P3039. Варианты: P020C — Превышение давления впрыска мочевины в блоке управления уровня мочевин, P020E — Превышение давления впрыска мочевины после охлаждения насоса мочевины . Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P3049",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P3049: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P3049. Варианты: P0210 — Ошибка понижения давления SCR, P02B8 — Короткое замыкание источника питания верхнего конца актуатора реверсив. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "P3050",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 P3050: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не P3050. Варианты: P0207 — Ошибка обратного трубопровода мочевины SCR, P02B9 — Короткое замыкание земли верхнего конца актуатора реверсивного клапана. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    },
+    {
+        "code": "U0104",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "OBD2 U0104: семейство 2 внутренних кодов Weichai",
+        "description": "На сканере Weichai/Shacman чаще внутренний P-код, не U0104. Варианты: P0082 — Ошибка времени ожидания ETC1, посылаемой CAN, P00AA — Ошибка времени ожидания информации, посылаемой CAN. Ищите заводской код с экрана — у каждого своя карточка.",
+        "causes": [
+            {"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None},
+            {"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None},
+            {"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
     },
     {
         "code": "SPN789_FMI5",

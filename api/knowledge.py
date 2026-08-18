@@ -8,6 +8,7 @@ oem_part ставим ТОЛЬКО если номер известен и пр�
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -904,33 +905,220 @@ def _all_keys(entry: dict[str, Any]) -> list[str]:
 
 
 def normalize_code(raw: str) -> str:
-    """P0087, p-0087, SPN 157 FMI 1, 157/1 → компактный ключ."""
+    """P0087, p-0087, DTC P001D, SPN 157 FMI 1, 157/1 → компактный ключ."""
     s = (raw or "").strip().upper()
     s = s.replace("–", "-").replace("—", "-")
+    if s.startswith("DTC"):
+        s = s[3:].lstrip(" :-")
     compact = (
         s.replace(" ", "")
         .replace("-", "")
         .replace("_", "")
         .replace("/", "")
+        .replace("+", "")
     )
     return compact
 
 
-def _index() -> dict[str, dict[str, Any]]:
-    idx: dict[str, dict[str, Any]] = {}
+_JUNK_ALIAS = {
+    "P0000", "U0000", "C0000", "B0000", "0", "00", "0000",
+}
+
+
+def _keep_alias(alias: str, primary: str) -> bool:
+    """Отсекаем артефакты парсера (DTC +7, 7+1, P0000) — они схлопывают индекс."""
+    raw = (alias or "").strip()
+    if not raw:
+        return False
+    nk = normalize_code(raw)
+    if not nk or nk in _JUNK_ALIAS:
+        return False
+    if nk == normalize_code(primary):
+        return False
+    body = raw.upper().replace("DTC", "").strip(" :")
+    if re.fullmatch(r"\+?\d{1,2}", body):
+        return False
+    if re.fullmatch(r"\d{1,2}\s*\+\s*\d{1,2}", body):
+        return False
+    if re.fullmatch(r"[A-Z]", body):
+        return False
+    if re.fullmatch(r"[PUBC][0-9A-F]{4}", nk):
+        return True
+    if re.fullmatch(r"SPN\d+FMI\d+", nk):
+        return True
+    if re.fullmatch(r"\d{1,7}FMI\d{1,2}", nk) or re.fullmatch(r"\d{3,7}\d{1,2}", nk):
+        # 1045/3 → 10453, SPN-less short form
+        return True
+    if re.fullmatch(r"\d{3,6}", nk):
+        return True
+    if nk.startswith("CUMMINS"):
+        return True
+    return False
+
+
+def _sanitize_aliases() -> None:
     for entry in KNOWLEDGE:
+        primary = str(entry.get("code") or "")
+        aliases = entry.get("aliases") or []
+        entry["aliases"] = [a for a in aliases if _keep_alias(str(a), primary)]
+
+
+def _drop_stolen_pcode_aliases() -> None:
+    """P007A как alias у десятка SPN-карточек крадёт чужой заводской код."""
+    primaries = {normalize_code(str(e.get("code") or "")) for e in KNOWLEDGE}
+    primaries.discard("")
+    for entry in KNOWLEDGE:
+        own = normalize_code(str(entry.get("code") or ""))
+        kept: list[str] = []
+        for alias in entry.get("aliases") or []:
+            nk = normalize_code(str(alias))
+            if re.fullmatch(r"[PUBC][0-9A-F]{4}", nk) and nk in primaries and nk != own:
+                continue
+            kept.append(alias)
+        entry["aliases"] = kept
+
+
+def _add_shared_pcode_families() -> None:
+    """Если P2455 висит alias на нескольких SPN — отдельная карточка-семейство, не first-wins."""
+    owners: dict[str, list[dict[str, Any]]] = {}
+    for entry in KNOWLEDGE:
+        own = normalize_code(str(entry.get("code") or ""))
+        for alias in entry.get("aliases") or []:
+            nk = normalize_code(str(alias))
+            if re.fullmatch(r"[PUBC][0-9A-F]{4}", nk) and nk != own:
+                owners.setdefault(nk, []).append(entry)
+    primaries = {normalize_code(str(e.get("code") or "")) for e in KNOWLEDGE}
+    for nk, ents in owners.items():
+        uniq: list[dict[str, Any]] = []
+        seen: set[int] = set()
+        for e in ents:
+            i = id(e)
+            if i in seen:
+                continue
+            seen.add(i)
+            uniq.append(e)
+        if len(uniq) < 2 or nk in primaries:
+            continue
+        members = [str(e.get("code")) for e in uniq[:16]]
+        extra = f" … ещё {len(uniq) - 16}" if len(uniq) > 16 else ""
+        KNOWLEDGE.append(
+            {
+                "code": nk,
+                "aliases": [],
+                "brands": ["Howo", "Sitrak", "Shacman", "Weichai"],
+                "engines": ["MC11", "MC13", "WP10", "WP12", "WP13"],
+                "title": f"OBD2 {nk}: семейство {len(uniq)} кодов SPN/FMI",
+                "description": (
+                    f"Этот OBD2-код на разных блоках соответствует разным SPN. "
+                    f"Не схлопываем в одну неисправность. Варианты: {', '.join(members)}{extra}. "
+                    "Ищите SPN/FMI со сканера — там точная карточка."
+                ),
+                "causes": [
+                    {
+                        "cause": "Нужен SPN/FMI, OBD2 здесь общий на несколько неисправностей",
+                        "probability": 55,
+                        "oem_part": None,
+                    },
+                    {
+                        "cause": "Обрыв / коррозия разъёма указанного узла",
+                        "probability": 25,
+                        "oem_part": None,
+                    },
+                    {
+                        "cause": "Неисправен сам датчик / клапан / блок",
+                        "probability": 20,
+                        "oem_part": None,
+                    },
+                ],
+                "check_steps": [
+                    "Считать полный SPN/FMI, не только OBD2 P/U-код.",
+                    "Повторить диагностику по SPN — откроется своя карточка.",
+                ],
+                "severity": "limited",
+                "estimated_time_min": 20,
+            }
+        )
+
+
+_sanitize_aliases()
+_add_shared_pcode_families()
+_drop_stolen_pcode_aliases()
+
+
+def _index() -> dict[str, list[dict[str, Any]]]:
+    """Один ключ → все карточки. Не first-wins: разные ЭБУ могут делить P-код."""
+    idx: dict[str, list[dict[str, Any]]] = {}
+    for entry in KNOWLEDGE:
+        seen: set[str] = set()
         for key in _all_keys(entry):
             nk = normalize_code(key)
-            if nk not in idx:
-                idx[nk] = entry
+            if not nk or nk in _JUNK_ALIAS or nk in seen:
+                continue
+            seen.add(nk)
+            idx.setdefault(nk, []).append(entry)
     return idx
 
 
 _INDEX = _index()
 
+_BRAND_HINTS = (
+    "Sitrak",
+    "Shacman",
+    "Howo",
+    "Weichai",
+    "FAW",
+    "Dongfeng",
+    "Foton",
+    "Yutong",
+    "Cummins",
+)
 
-def lookup(code: str) -> dict[str, Any] | None:
-    return _INDEX.get(normalize_code(code))
+
+def infer_brand(vehicle_model: str | None) -> str:
+    s = (vehicle_model or "").strip()
+    if not s:
+        return ""
+    low = s.lower()
+    for name in _BRAND_HINTS:
+        if name.lower() in low:
+            return name
+    return s.split()[0]
+
+
+def lookup(
+    code: str,
+    engine: str | None = None,
+    brand: str | None = None,
+) -> dict[str, Any] | None:
+    """Ищем код. Если карточек несколько — берём ту, что ближе к двигателю/марке."""
+    cands = _INDEX.get(normalize_code(code)) or []
+    if not cands:
+        return None
+    if len(cands) == 1:
+        return cands[0]
+
+    nk = normalize_code(code)
+    eng = (engine or "").strip().upper()
+    br = infer_brand(brand).upper()
+
+    def score(entry: dict[str, Any]) -> tuple[int, int]:
+        pts = 0
+        if normalize_code(str(entry.get("code") or "")) == nk:
+            pts += 100
+        else:
+            pts += 35
+        engines = [str(x).upper() for x in (entry.get("engines") or [])]
+        brands = [str(x).upper() for x in (entry.get("brands") or [])]
+        if eng and eng in engines:
+            pts += 45
+        if br and any(br == b or br.startswith(b) or b in br for b in brands):
+            pts += 25
+        if not entry.get("source_system"):
+            pts += 8
+        # стабильный тай-брейк: короче title — обычно точнее карточка, не семейство
+        return (pts, -len(str(entry.get("title") or "")))
+
+    return max(cands, key=score)
 
 
 def _img(file: str, caption: str) -> dict[str, str]:
@@ -1060,9 +1248,13 @@ CODE_IMAGES: dict[str, list[dict[str, str]]] = {
 }
 
 
-def images_for(code: str) -> list[dict[str, str]]:
+def images_for(
+    code: str,
+    engine: str | None = None,
+    brand: str | None = None,
+) -> list[dict[str, str]]:
     """Фото узла для кода. Пустой список, если кода нет в базе или фото не привязаны."""
-    entry = lookup(code)
+    entry = lookup(code, engine=engine, brand=brand)
     if not entry:
         return []
     items = CODE_IMAGES.get(str(entry["code"])) or []

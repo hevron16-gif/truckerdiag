@@ -474,6 +474,18 @@ def py_str(s: str) -> str:
 
 
 USED_ALIASES: set[str] = set()
+# OBD2, который делят несколько внутренних кодов Weichai — не вешаем как alias,
+# иначе lookup(P2609) всегда попадает в первую карточку семейства.
+SHARED_OBD: set[str] = set()
+GENERIC_OBD_SKIP = {
+    "P0000",
+    "U0073",
+    "U0100",
+    "U0101",
+    "U0113",
+    "U0121",
+    "U0155",
+}
 
 
 def clean_desc(s: str) -> str:
@@ -496,7 +508,13 @@ def emit_entry(code: str, items: list[dict]) -> str:
     aliases = []
     for it in items:
         obd = (it.get("obd") or "").strip().upper()
-        if obd and obd != code and re.fullmatch(r"[PUC][0-9A-F]{4}", obd):
+        if (
+            obd
+            and obd != code
+            and obd not in GENERIC_OBD_SKIP
+            and obd not in SHARED_OBD
+            and re.fullmatch(r"[PUC][0-9A-F]{4}", obd)
+        ):
             key = re.sub(r"[\s/_-]", "", obd)
             if key not in USED_ALIASES:
                 USED_ALIASES.add(key)
@@ -561,11 +579,59 @@ def emit_entry(code: str, items: list[dict]) -> str:
     }}"""
 
 
+def _family_block(obd: str, members: list[tuple[str, str]]) -> str:
+    codes = [c for c, _ in members]
+    listed = ", ".join(f"{c} — {d}" for c, d in members[:12])
+    if len(members) > 12:
+        listed += f" … ещё {len(members) - 12}"
+    title = f"OBD2 {obd}: семейство {len(members)} внутренних кодов Weichai"
+    desc = (
+        f"На сканере Weichai/Shacman чаще внутренний P-код, не {obd}. "
+        f"Варианты: {listed}. Ищите заводской код с экрана — у каждого своя карточка."
+    )
+    return f"""    {{
+        "code": "{obd}",
+        "aliases": [],
+        "brands": ["Howo", "Shacman", "Weichai"],
+        "engines": ["WP10", "WP12", "WP13", "WP7", "WP6"],
+        "title": "{py_str(title)}",
+        "description": "{py_str(desc)}",
+        "causes": [
+            {{"cause": "Нужен внутренний код Weichai (Pxxxx), OBD2 здесь общий на семейство", "probability": 50, "oem_part": None}},
+            {{"cause": "Обрыв / коррозия разъёма указанного узла", "probability": 30, "oem_part": None}},
+            {{"cause": "Неисправен сам датчик / клапан / реле", "probability": 20, "oem_part": None}}
+        ],
+        "check_steps": [
+            "Считать заводской код Weichai (не только OBD2) сканером.",
+            "Повторить диагностику по внутреннему коду — там точная карточка.",
+        ],
+        "severity": "limited",
+        "estimated_time_min": 20,
+    }}"""
+
+
 def main() -> None:
     by = load_rows()
+    obd_members: dict[str, list[tuple[str, str]]] = defaultdict(list)
+    for code, items in by.items():
+        for it in items:
+            obd = (it.get("obd") or "").strip().upper()
+            if re.fullmatch(r"[PUC][0-9A-F]{4}", obd):
+                desc = clean_desc(it.get("desc") or "")
+                if all(c != code for c, _ in obd_members[obd]):
+                    obd_members[obd].append((code, desc[:70]))
+    SHARED_OBD.clear()
+    SHARED_OBD.update(obd for obd, mem in obd_members.items() if len(mem) > 1)
+
     blocks = []
     for code in sorted(by):
         blocks.append(emit_entry(code, by[code]))
+    for obd in sorted(SHARED_OBD):
+        if obd in GENERIC_OBD_SKIP or obd in SKIP or obd in by:
+            continue
+        mem = obd_members[obd]
+        if 2 <= len(mem) <= 12:
+            blocks.append(_family_block(obd, mem))
 
     # Extra ABS / body codes from Shacman-WABCO field table (not in Weichai ECU list)
     extra_abs = [

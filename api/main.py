@@ -169,9 +169,15 @@ def _parse_json_content(raw: str) -> dict:
     return data
 
 
-def _sanitize_diagnosis(data: dict, error_code: str) -> dict:
+def _sanitize_diagnosis(
+    data: dict,
+    error_code: str,
+    *,
+    engine: str | None = None,
+    brand: str | None = None,
+) -> dict:
     """Режем выдуманные OEM: оставляем номер, только если он есть в базе для этого кода."""
-    entry = lookup(error_code)
+    entry = lookup(error_code, engine=engine, brand=brand)
     allowed: set[str] = set()
     if entry:
         for cause in entry.get("causes") or []:
@@ -216,7 +222,7 @@ def _sanitize_diagnosis(data: dict, error_code: str) -> dict:
     data["error_description"] = str(data.get("error_description") or "").strip() or "Нет описания"
     data["practical_advice"] = str(data.get("practical_advice") or "").strip()
     # Картинки только из базы, модель их не выбирает и не выдумывает.
-    data["images"] = images_for(error_code)
+    data["images"] = images_for(error_code, engine=engine, brand=brand)
     return data
 
 
@@ -243,7 +249,7 @@ def _run_diagnosis(
     error_code: str,
     extra: dict | str | None = None,
 ) -> dict:
-    known = lookup(error_code)
+    known = lookup(error_code, engine=engine, brand=vehicle_model)
     if known:
         kb_hint = (
             "Код есть в сервисной базе — опирайся на карточку. "
@@ -272,7 +278,9 @@ def _run_diagnosis(
             {"role": "user", "content": user_prompt},
         ]
     )
-    return _sanitize_diagnosis(raw, error_code)
+    return _sanitize_diagnosis(
+        raw, error_code, engine=engine, brand=vehicle_model
+    )
 
 
 @app.post("/diagnose", response_model=DiagnoseResponse)
