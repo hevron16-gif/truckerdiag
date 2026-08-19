@@ -1,8 +1,9 @@
 /* TruckerDiag PWA service worker */
-const CACHE = "truckerdiag-v7";
+const CACHE = "truckerdiag-v8";
 const ASSETS = [
   "./",
   "./index.html",
+  "./pricing.html",
   "./requisites.html",
   "./comments.html",
   "./comments.js",
